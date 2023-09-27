@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rental buku | Dashboard</title>
-</head>
-<body>
-    dashboard admin
-</body>
-</html>
+@extends('layouts.mainlayouts')
+
+@section('title', 'Dashboard')
+    
+@section('content')
+    <button class="btn btn-primary">test</button>
+@endsection
