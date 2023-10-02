@@ -8,7 +8,11 @@ class UserController extends Controller
 {
     public function profile(Request $request)
     {
-        $request->session()->flush();
-        // dd('h');
+        return view('profile');
+    }
+
+    public function index()
+    {
+        return view('user');
     }
 }

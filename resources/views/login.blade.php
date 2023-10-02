@@ -35,7 +35,7 @@
             <form action="" method="POST">
                 @csrf
                 <div>
-                    <label for="username" class="form-label">username</label>
+                    <label for="username" class="form-label">Username</label>
                     <input type="text" name="username" id="username" class="form-control" required>
                 </div>
                 <div>
@@ -43,7 +43,7 @@
                     <input type="password" name="password" id="password" class="form-control" required>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary form-control">login</button>
+                    <button type="submit" class="btn btn-primary form-control">Login</button>
                 </div>
                 <div class="text-center">
                     don t have account?<a href="register">Sign up</a>

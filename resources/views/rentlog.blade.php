@@ -1,9 +1,9 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Profile')
-
+@section('title', 'Dashboard')
+    
 @section('page-name', 'books')
 
 @section('content')
-<h1>halaman profile</h1>
+<h1>halaman rent log</h1>
 @endsection

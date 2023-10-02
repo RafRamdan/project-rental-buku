@@ -1,9 +1,11 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Profile')
-
+@section('title', 'Dashboard')
+    
 @section('page-name', 'books')
 
 @section('content')
-<h1>halaman profile</h1>
+
+<h1>ini halaman user</h1>
+
 @endsection

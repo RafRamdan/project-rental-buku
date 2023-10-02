@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use App\Model\User;
 
 class AuthController extends Controller
 {
@@ -65,7 +66,7 @@ class AuthController extends Controller
         return redirect('login');   
     }
 
-    function registerProces(Request $request) : Returntype {
+    function registerProcess(Request $request){
         $validated = $request->validate([
             'username' => 'required|unique:users|max:255',
             'password' =>  'required|max:255',
