@@ -1,8 +1,6 @@
 @extends('layouts.mainlayout')
 
 @section('title', 'Category')
-
-@section('page-name', 'books')
     
 @section('content')
 
@@ -10,6 +8,14 @@
 
 <div class="mt-5 d-flex justify-content-end">
     <a href="category-add" class="btn btn-primary">Add Data</a>
+</div>
+
+<div class="mt-5">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 </div>
 
 <div class="my-5">
@@ -27,8 +33,8 @@
                 <td>{{ $loop->iteration }}</td>    
                 <td>{{ $item->name }}</td>
                 <td>
-                    <a href="#">Edit</a>    
-                    <a href="#">Delete</a>    
+                    <a href="category-edit/{{$item->slug}}">Edit</a>    
+                    <a href="category-delete/{{$item->slug}}">Delete</a>    
                 </td>    
             </tr>
             @endforeach

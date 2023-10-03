@@ -40,7 +40,12 @@ Route::middleware('auth')->group(function(){
     Route::get('books', [BookController::class, 'index'])->middleware('only_admin');
 
     Route::get('categories', [CategoryController::class, 'index'])->middleware('only_admin');
-    Route::post('category-add', [CategoryController::class, 'add'])->middleware('only_admin');
+    Route::get('category-add', [CategoryController::class, 'add'])->middleware('only_admin');
+    Route::post('category-add', [CategoryController::class, 'store'])->middleware('only_admin');
+    Route::get('category-edit/{slug}', [CategoryController::class, 'edit'])->middleware('only_admin');
+    Route::put('category-edit/{slug}', [CategoryController::class, 'update'])->middleware('only_admin');
+    Route::get('category-delete/{slug}', [CategoryController::class, 'delete'])->middleware('only_admin');
+    Route::get('category-destroy/{slug}', [CategoryController::class, 'destroy'])->middleware('only_admin');
 
     Route::get('users', [UserController::class, 'index'])->middleware('only_admin');
 
