@@ -58,6 +58,13 @@ Route::middleware('auth')->group(function(){
     Route::get('category-restore/{slug}', [CategoryController::class, 'restore'])->middleware('only_admin');
 
     Route::get('users', [UserController::class, 'index'])->middleware('only_admin');
+    Route::get('registered-user', [UserController::class, 'registeredUser'])->middleware('only_admin');
+    Route::get('user-detail/{slug}', [UserController::class, 'show'])->middleware('only_admin');
+    Route::get('user-approve/{slug}', [UserController::class, 'approve'])->middleware('only_admin');
+    Route::get('user-ban/{slug}', [UserController::class, 'delete'])->middleware('only_admin');
+    Route::get('user-destroy/{slug}', [UserController::class, 'destroy'])->middleware('only_admin');
+    Route::get('user-banned', [UserController::class, 'bannedUser'])->middleware('only_admin');
+    Route::get('user-restore/{slug}', [UserController::class, 'restore'])->middleware('only_admin');
 
     Route::get('rent-logs', [RentLogController::class, 'index'])->middleware('only_admin');
 });
