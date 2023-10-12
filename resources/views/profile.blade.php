@@ -2,8 +2,11 @@
 
 @section('title', 'Profile')
 
-@section('page-name', 'books')
-
 @section('content')
-<h1>halaman profile</h1>
+
+    <div class="mt-5">
+        <h2>Your Rent Log</h2>
+        <x-rent-log-table :rentlog='$rent_logs' />
+    </div>
+
 @endsection

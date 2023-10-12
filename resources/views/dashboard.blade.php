@@ -61,9 +61,22 @@
                 </tr>
             </thead>
             <tbody>
+                @if($count_data == 0)
+                    <tr>
+                        <td colspan="7" style="text-align:center;">No Data</td>
+                    </tr>
+                @endif 
+            @foreach ($data as $item)
                 <tr>
-                    <td colspan="7" style="text-align:center;">No Data</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->user->username }}</td>
+                    <td>{{ $item->book->title }}</td>
+                    <td>{{ $item->rent_date }}</td>
+                    <td>{{ $item->return_date }}</td>
+                    <td>{{ $item->actual_return_date }}</td>
+                    <td>{{ $item->book->status }}</td>
                 </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

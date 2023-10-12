@@ -14,7 +14,7 @@ class BookRentController extends Controller
 {
     public function index()
     {
-        $users = User::where('role_id', '!=', 1)->get();
+        $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
         $books = Book::all();
         return view('book-rent', ['users' => $users, 'books' => $books]);
     }
@@ -32,22 +32,61 @@ class BookRentController extends Controller
             return redirect('book-rent');
         }
         else{
-            try {
-                DB::beginTransaction();
-                RentLogs::create($request->all());
-                $book = Book::findOrFail($request->book_id);
-                $book->status = 'not available';
-                $book->save();
-                DB::commit(); 
+            $count = RentLogs::where('user_id', $request->user_id)->where('actual_return_date', null)
+            ->count();
 
-                Session::flash('message', 'Rent book success!!!');
-                Session::flash('alert-class', 'alert-success');
+            if($count >= 3) {
+                Session::flash('message', 'Cannot rent, user has reach limit of book');
+                Session::flash('alert-class', 'alert-danger');
                 return redirect('book-rent');
-            } catch (\Throwable $th) {
-                DB::rollBack();
-                dd($th);
+            }
+            else{
+                try {
+                    DB::beginTransaction();
+                    RentLogs::create($request->all());
+                    $book = Book::findOrFail($request->book_id);
+                    $book->status = 'not available';
+                    $book->save();
+                    DB::commit(); 
+    
+                    Session::flash('message', 'Rent book success!!!');
+                    Session::flash('alert-class', 'alert-success');
+                    return redirect('book-rent');
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+                }
             }
         }
+    }
 
+    public function returnBook()
+    {
+        $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
+        $books = Book::all();
+        return view('return-book', ['users' => $users, 'books' => $books]);
+    }
+
+    public function saveReturnBook(Request $request)
+    {
+        $rent = RentLogs::where('user_id', $request->user_id)->where('book_id', $request->book_id)->where('actual_return_date', null);
+        $rentData = $rent->first();
+        $countData = $rent->count();
+
+        if($countData == 1) {
+            $rentData->actual_return_date = Carbon::now()->toDateString();
+            $book = Book::findOrFail($request->book_id);
+            $book->status = 'in stock';
+            $book->save();
+            $rentData->save();
+
+            Session::flash('message', 'The Book is returned successfull');
+            Session::flash('alert-class', 'alert-success');
+            return redirect('book-return');
+        }
+        else {
+            Session::flash('message', 'There is error in process');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('book-return');
+        }
     }
 }
