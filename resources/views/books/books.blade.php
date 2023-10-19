@@ -6,12 +6,16 @@
     
 @section('content')
     <h1>Book List</h1>
-
-    <div class="my-5 d-flex justify-content-end">
-        <a href="book-deleted" class="btn btn-secondary me-3">View Deleted Data</a>
-        <a href="book-add" class="btn btn-primary">Add Data Books</a>
-    </div>
-
+    <nav class="navbar">
+        <div class="my-5 d-flex justify-content-end">
+            <a href="book-deleted" class="btn btn-secondary me-3">View Deleted Data</a>
+            <a href="book-add" class="btn btn-primary">Add Data Books</a>
+        </div>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search title or code" name="search" aria-label="Search" value="{{ request('search') }}">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+    </nav>
     <div class="mt-5">
         @if (session('status'))
             <div class="alert alert-success">
@@ -52,5 +56,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="card-footer">
+            {{ $books->links()  }}
+        </div>
     </div>
 @endsection

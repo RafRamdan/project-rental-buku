@@ -41,7 +41,7 @@
             @if ($book->cover!='')
                 <img src="{{ asset('storage/cover/'.$book->cover) }}" alt="" width="300px">
             @else 
-                <img src="{{ asset('images/contoh program.jpg') }}" alt="" width="300px">
+                <img src="{{ asset('images/not found.jpg') }}" alt="" width="300px">
             @endif
         </div>
         

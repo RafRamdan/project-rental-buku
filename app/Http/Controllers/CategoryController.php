@@ -7,15 +7,21 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-        return view ('category', ['categories' => $categories]);
+        if($request->has('search')) {
+            $categories = Category::where('name','like','%'.$request->search.'%')
+                         ->paginate(10);
+        }else{
+            $categories = Category::paginate(10);
+        }
+        
+        return view ('categorys.category', ['categories' => $categories]);
     }
 
     public function add(Request $request)
     {
-        return view ('category-add');
+        return view ('categorys.category-add');
     }
 
     public function store(Request $request)
@@ -31,7 +37,7 @@ class CategoryController extends Controller
     public function edit($slug)
     {
         $category = Category::where('slug', $slug)->first();
-        return view ('category-edit', ['category' => $category]);
+        return view ('categorys.category-edit', ['category' => $category]);
     }
 
     public function update(Request $request,$slug)
@@ -49,7 +55,7 @@ class CategoryController extends Controller
     public function delete($slug)
     {
         $category = Category::where('slug', $slug)->first();
-        return view ('category-delete', ['category' => $category]);
+        return view ('categorys.category-delete', ['category' => $category]);
     }
 
     public function destroy($slug)
@@ -62,7 +68,7 @@ class CategoryController extends Controller
     public function deletedCategory()
     {
         $deletedCategories = Category::onlyTrashed()->get();
-        return view ('category-deleted-list', ['deletedCategories' => $deletedCategories]);
+        return view ('categorys.category-deleted-list', ['deletedCategories' => $deletedCategories]);
     }
 
     public function restore($slug)

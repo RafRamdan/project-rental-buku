@@ -5,11 +5,17 @@
 @section('content')
 
 <h1>List Category</h1>
+<nav class="navbar">
+    <div class="mt-5 d-flex justify-content-end">
+        <a href="category-deleted" class="btn btn-secondary me-3">View Deleted Data</a>
+        <a href="category-add" class="btn btn-primary">Add Data</a>
+    </div>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search name category" name="search" aria-label="Search" value="{{ request('search') }}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+</nav>
 
-<div class="mt-5 d-flex justify-content-end">
-    <a href="category-deleted" class="btn btn-secondary me-3">View Deleted Data</a>
-    <a href="category-add" class="btn btn-primary">Add Data</a>
-</div>
 
 <div class="mt-5">
     @if (session('status'))
@@ -41,6 +47,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="card-footer">
+        {{ $categories->links()  }}
+    </div>
 </div>
 
 @endsection

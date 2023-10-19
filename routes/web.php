@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function(){
     Route::get('logout', [AuthController::class, 'logout']);
 
     Route::get('profile', [UserController::class, 'profile'])->middleware('only_client');
+    Route::get('daftar_buku', [UserController::class, 'dummy_daftar'])->middleware('only_client');
 
     Route::middleware('only_admin')->group(function(){
         Route::get('dashboard', [DashboardController::class, 'index']);
@@ -71,9 +72,11 @@ Route::middleware('auth')->group(function(){
         Route::post('book-rent', [BookRentController::class, 'store']);
 
         Route::get('rent-logs', [RentLogController::class, 'index']);
+        Route::get('exportpdf', [RentLogController::class, 'exportpdf']);
 
         Route::get('book-return', [BookRentController::class, 'returnBook']);
         Route::post('book-return', [BookRentController::class, 'saveReturnBook']);
+
     });
 
 });

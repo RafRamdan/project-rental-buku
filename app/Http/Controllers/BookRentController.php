@@ -16,7 +16,7 @@ class BookRentController extends Controller
     {
         $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
         $books = Book::all();
-        return view('book-rent', ['users' => $users, 'books' => $books]);
+        return view('rental.book-rent', ['users' => $users, 'books' => $books]);
     }
 
     public function store(Request $request)
@@ -63,7 +63,7 @@ class BookRentController extends Controller
     {
         $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
         $books = Book::all();
-        return view('return-book', ['users' => $users, 'books' => $books]);
+        return view('return.return-book', ['users' => $users, 'books' => $books]);
     }
 
     public function saveReturnBook(Request $request)

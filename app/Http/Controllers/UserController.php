@@ -11,14 +11,22 @@ class UserController extends Controller
 {
     public function profile(Request $request)
     {
-        $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', Auth::user()->id)->get();
-        return view('profile', ['rent_logs' => $rentlogs]);
+        $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', Auth::user()->id)->paginate(10);
+        return view('profile.profile', ['rent_logs' => $rentlogs]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('role_id', 2)->where('status', 'active')->get();
-        return view('user', ['users' => $users]);
+        if($request->has('search')) {
+            $users = User::where('role_id', 2)->where('status', 'active')
+                         ->where('username','like','%'.$request->search.'%')
+                         ->orwhere('phone','like','%'.$request->search.'%')
+                         ->paginate(10);
+        }else{
+            $users = User::where('role_id', 2)->where('status', 'active')->paginate(10);
+        }
+        
+        return view('users.user', ['users' => $users]);
     }
 
     public function registeredUser()
@@ -31,7 +39,7 @@ class UserController extends Controller
     {
         $user = User::where('slug', $slug)->first();
         $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', $user->id)->get();
-        return view('user-detail', ['user' => $user, 'rent_logs' => $rentlogs]);
+        return view('users.user-detail', ['user' => $user, 'rent_logs' => $rentlogs]);
     }
 
     public function approve($slug)
@@ -46,7 +54,7 @@ class UserController extends Controller
     public function delete($slug)
     {
         $user = User::where('slug', $slug)->first();
-        return view('user-delete', ['user' => $user]);
+        return view('users.user-delete', ['user' => $user]);
     }
 
     public function destroy($slug)
@@ -60,7 +68,7 @@ class UserController extends Controller
     public function bannedUser()
     {
         $bannedUsers = User::onlyTrashed()->get();
-        return view('user-banned', ['bannedUsers' => $bannedUsers]);
+        return view('users.user-banned', ['bannedUsers' => $bannedUsers]);
     }
 
     public function restore($slug)
@@ -68,5 +76,10 @@ class UserController extends Controller
         $user = User::withTrashed()->where('slug', $slug)->first();
         $user->restore();
         return redirect('users')->with('status', 'User Restore Success');
+    }
+
+    public function dummy_daftar()
+    {
+        return view('daftar_buku');
     }
 }

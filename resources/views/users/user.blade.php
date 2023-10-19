@@ -5,11 +5,16 @@
 @section('content')
 
 <h1>List user</h1>
-
+<nav class="navbar">
     <div class="mt-5 d-flex justify-content-end">
         <a href="/user-banned" class="btn btn-secondary me-3">View Banned User</a>
         <a href="registered-user" class="btn btn-primary">New Registered User</a>
     </div>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search user or phone" name="search" aria-label="Search" value="{{ request('search') }}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+</nav>
 
     <div class="mt-5">
         @if (session('status'))

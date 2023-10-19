@@ -1,3 +1,7 @@
+<div class="mt-5 d-flex justify-content-end">
+    <a href="/exportpdf" class="btn btn-info me-3">Export PDF</a>
+</div>
+
 <div>
     <table class="table">
         <thead>

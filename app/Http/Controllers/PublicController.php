@@ -21,7 +21,7 @@ class PublicController extends Controller
         else {
             $books = Book::all();
         }
-        return view ('book-list', ['books' => $books, 'categories' => $categories]);
+        return view ('list.book-list', ['books' => $books, 'categories' => $categories]);
     }
     
 }
