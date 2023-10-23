@@ -10,6 +10,8 @@ class BookController extends Controller
 {
     public function index(Request $request)
     {
+        $countData = Book::count();
+
         if($request->has('search')) {
             $books = Book::where('title','like','%'.$request->search.'%')
                          ->orwhere('book_code','like','%'.$request->search.'%')
@@ -18,7 +20,7 @@ class BookController extends Controller
             $books = Book::paginate(10);
         }
 
-        return view('books.books', ['books' => $books]);
+        return view('books.books', ['books' => $books, 'count_data' => $countData]);
     }
 
     public function add()
@@ -32,6 +34,8 @@ class BookController extends Controller
         $validated = $request->validate([
             'book_code' => 'required|unique:books|max:255',
             'title' => 'required|max:255',
+            'publisher' => 'required|max:225',
+            'author' => 'required|max:255',
         ]);
         $newName = '';
         if($request->file('image')){
@@ -41,7 +45,17 @@ class BookController extends Controller
         }
 
         $request['cover'] = $newName;
-        $book = Book::create($request->all());
+        $book = Book::create([
+            'book_code' => $request->book_code,
+            'title' => $request->title,
+            'author' => $request->author,
+            'description' => $request->description,
+            'page' => $request->page,
+            'publisher' => $request->publisher,
+            'slug' => $request->slug,
+            'publication_date' => $request->publication_date,
+            'cover' => $request->cover,
+        ]);
         $book->categories()->sync($request->categories);
         return redirect('books')->with('status', 'Books Added Success');
     }
@@ -88,8 +102,10 @@ class BookController extends Controller
 
     public function deletedBook()
     {
+        $countData = Book::count();
+
         $deletedBooks = Book::onlyTrashed()->get();
-        return view ('books.book-deleted-list', ['deletedBooks' => $deletedBooks]);
+        return view ('books.book-deleted-list', ['deletedBooks' => $deletedBooks, 'count_data' => $countData]);
     }
 
     public function restore($slug)

@@ -31,17 +31,24 @@
                     <th>No.</th>
                     <th>Code</th>
                     <th>Title</th>
+                    <th>Author</th>
                     <th>Category</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                @if($count_data == 0)
+                    <tr>
+                        <td colspan="7" style="text-align:center;">No Data</td>
+                    </tr>
+                @endif 
                 @foreach ($books as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->book_code }}</td>
                         <td>{{ $item->title }}</td>
+                        <td>{{ $item->author }}</td>
                         <td>
                             @foreach ($item->categories as $category)
                                 {{ $category->name }}

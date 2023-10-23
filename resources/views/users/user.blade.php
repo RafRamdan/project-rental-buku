@@ -30,15 +30,24 @@
                 <tr>
                     <th>No.</th>
                     <th>Username</th>
+                    <th>Nis</th>
+                    <th>Class</th>
                     <th>Phone</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                @if($count_data == 0)
+                    <tr>
+                        <td colspan="7" style="text-align:center;">No Data</td>
+                    </tr>
+                @endif 
                 @foreach ($users as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->username }}</td>
+                        <td>{{ $item->nis }}</td>
+                        <td>{{ $item->class }}</td>
                         <td>
                             @if ($item->phone)
                                 {{ $item->phone }}

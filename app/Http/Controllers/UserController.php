@@ -17,6 +17,8 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        $countData = User::count();
+
         if($request->has('search')) {
             $users = User::where('role_id', 2)->where('status', 'active')
                          ->where('username','like','%'.$request->search.'%')
@@ -26,7 +28,7 @@ class UserController extends Controller
             $users = User::where('role_id', 2)->where('status', 'active')->paginate(10);
         }
         
-        return view('users.user', ['users' => $users]);
+        return view('users.user', ['users' => $users, 'count_data' => $countData]);
     }
 
     public function registeredUser()

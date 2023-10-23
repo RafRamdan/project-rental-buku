@@ -1,0 +1,4 @@
+Tambahan untuk perpustakaan
+
+- dalam tabel buku +pengarang,+deskripsi,+penerbit,+tahun_terbit,+halaman
+- tabel user + nis,+ kelas

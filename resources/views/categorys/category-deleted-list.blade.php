@@ -28,6 +28,7 @@
             </tr>
         </thead>
         <tbody>
+            
             @foreach ($deletedCategories as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>    

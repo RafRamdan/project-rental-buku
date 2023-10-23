@@ -9,6 +9,8 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
+        $countData = Category::count();
+
         if($request->has('search')) {
             $categories = Category::where('name','like','%'.$request->search.'%')
                          ->paginate(10);
@@ -16,7 +18,7 @@ class CategoryController extends Controller
             $categories = Category::paginate(10);
         }
         
-        return view ('categorys.category', ['categories' => $categories]);
+        return view ('categorys.category', ['categories' => $categories, 'count_data' => $countData]);
     }
 
     public function add(Request $request)

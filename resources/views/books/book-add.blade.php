@@ -31,6 +31,30 @@
             <input type="text" name="title" id="title" class="form-control" placeholder="Book's Title" value="{{ old('title') }}">
         </div>
 
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" name="author" id="author" class="form-control" placeholder="Book's Author" value="{{ old('author') }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="publisher" class="form-label">Publisher</label>
+            <input type="text" name="publisher" id="publisher" class="form-control" placeholder="Book's Publisher" value="{{ old('publisher') }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="publication_date" class="form-label">Publication Date</label>
+            <input type="date" name="publication_date" id="publication_date" class="form-control" placeholder="Book's Publication" value="{{ old('publication_date') }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="page" class="form-label">Page</label>
+            <input type="text" name="page" id="page" class="form-control" placeholder="Book's Page" value="{{ old('page') }}">
+        </div>
+
+        <div>
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" class="form-control" rows="5" required></textarea>
+       </div>
         
         <div class="mb-3">
             <label for="image" class="form-label">Image</label>

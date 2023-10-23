@@ -54,6 +54,14 @@
             <input type="password" name="password" id="password" class="form-control" >
         </div>
         <div>
+            <label for="nis" class="form-label">Nis</label>
+            <input type="text" name="nis" id="nis" class="form-control" >
+        </div>
+        <div>
+            <label for="class" class="form-label">Class</label>
+            <input type="text" name="class" id="class" class="form-control" >
+        </div>
+        <div>
              <label for="phone" class="form-label">Phone</label>
              <input type="text" name="phone" id="phone" class="form-control" >
         </div>

@@ -26,6 +26,14 @@
             <input type="text" class="form-control" readonly value="{{$user->username}}">
         </div>
         <div class="mb-3">
+            <label for="" class="form-label">Nis</label>
+            <input type="text" class="form-control" readonly value="{{$user->nis}}">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Class</label>
+            <input type="text" class="form-control" readonly value="{{$user->class}}">
+        </div>
+        <div class="mb-3">
             <label for="" class="form-label">Phone</label>
             <input type="text" class="form-control" readonly value="{{$user->phone}}">
         </div>
