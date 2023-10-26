@@ -17,7 +17,7 @@ class RentLogController extends Controller
 
     public function exportpdf()
     {
-        $data = RentLogs::with(['user', 'book'])->where('actual_return_date', '!=', null)->get();
+        $data = RentLogs::with(['user', 'book'])->get();
 
         view()->share('data', $data);
         $pdf = PDF::loadview('rent-logs.rentlog-pdf');

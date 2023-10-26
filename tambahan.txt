@@ -1,4 +1,13 @@
 Tambahan untuk perpustakaan
 
-- dalam tabel buku +pengarang,+deskripsi,+penerbit,+tahun_terbit,+halaman
-- tabel user + nis,+ kelas
+- dalam tabel buku +pengarang,+deskripsi,+penerbit,+tahun_terbit,+halaman ^
+- tabel user + nis,+ kelas ^
+- menambahkan detail buku ^
+- mengganti edit buku ^
+- menambahkan limit user pinjam
+- menambahkan profile user dan edit profile
+- mengubah ui book-list,admin,profile, project
+- menambahkan stock pada buku
+- menambah role 
+- mengseleksi di book rental user yang sudah limit dan buku yang limit stock habis seharusnya tidak muncul
+- mengseleksi di book return hanya user yang sedang meminjam yang tampil dan buku yang sudah habis stock

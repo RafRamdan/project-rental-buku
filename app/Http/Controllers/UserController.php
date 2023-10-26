@@ -11,13 +11,14 @@ class UserController extends Controller
 {
     public function profile(Request $request)
     {
+        
         $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', Auth::user()->id)->paginate(10);
         return view('profile.profile', ['rent_logs' => $rentlogs]);
     }
 
     public function index(Request $request)
     {
-        $countData = User::count();
+        $countData = User::where('role_id', 2)->where('status', 'active')->count();
 
         if($request->has('search')) {
             $users = User::where('role_id', 2)->where('status', 'active')
@@ -33,8 +34,10 @@ class UserController extends Controller
 
     public function registeredUser()
     {
+        $countData = User::where('status', 'inactive')->count();
+
         $registeredUsers = User::where('status', 'inactive')->where('role_id', 2)->get();
-        return view ('registered-user', ['registeredUsers' => $registeredUsers]);
+        return view ('registered-user', ['registeredUsers' => $registeredUsers, 'count_data' => $countData]);
     }
 
     public function show($slug)
@@ -70,18 +73,16 @@ class UserController extends Controller
     public function bannedUser()
     {
         $bannedUsers = User::onlyTrashed()->get();
-        return view('users.user-banned', ['bannedUsers' => $bannedUsers]);
+
+        $countData = User::onlyTrashed()->count();
+        return view('users.user-banned', ['bannedUsers' => $bannedUsers, 'count_data' => $countData]);
     }
 
     public function restore($slug)
     {
         $user = User::withTrashed()->where('slug', $slug)->first();
         $user->restore();
-        return redirect('users')->with('status', 'User Restore Success');
+        return redirect('user-banned')->with('status', 'User Restore Success');
     }
 
-    public function dummy_daftar()
-    {
-        return view('daftar_buku');
-    }
 }

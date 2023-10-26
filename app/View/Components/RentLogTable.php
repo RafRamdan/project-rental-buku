@@ -17,6 +17,7 @@ class RentLogTable extends Component
         $this->rentlog = $rentlog;
     }
 
+    
     /**
      * Get the view / contents that represent the component.
      */

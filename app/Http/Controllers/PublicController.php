@@ -17,11 +17,13 @@ class PublicController extends Controller
                          ->orWhereHas('categories', function($q) use($request) {
                              $q->where('categories.id', $request->category);
                          })->get();
+            $countData = Book::count();
         }
         else {
             $books = Book::all();
+            $countData = Book::count();
         }
-        return view ('list.book-list', ['books' => $books, 'categories' => $categories]);
+        return view ('list.book-list', ['books' => $books, 'categories' => $categories, 'count_data' => $countData]);
     }
     
 }

@@ -28,7 +28,11 @@
             </tr>
         </thead>
         <tbody>
-            
+            @if($count_data == 0)
+                <tr>
+                    <td colspan="7" style="text-align:center;">No Data</td>
+                </tr>
+            @endif 
             @foreach ($deletedCategories as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>    

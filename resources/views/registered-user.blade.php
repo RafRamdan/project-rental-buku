@@ -23,23 +23,28 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($registeredUsers as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->username }}</td>
-                    <td>{{ $item->nis }}</td>
-                    <td>{{ $item->class }}</td>
-                    <td>
-                        @if ($item->phone)
-                            {{ $item->phone }}
-                        @else
-                            -
-                        @endif
-                    </td>
-                    <td>
-                        <a href="/user-detail/{{$item->slug}}">detail</a>
-                    </td>
-                </tr>
+                @if($count_data == 0)
+                    <tr>
+                        <td colspan="7" style="text-align:center;">No Data</td>
+                    </tr>
+                @endif 
+                 @foreach ($registeredUsers as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->username }}</td>
+                        <td>{{ $item->nis }}</td>
+                        <td>{{ $item->class }}</td>
+                        <td>
+                            @if ($item->phone)
+                                {{ $item->phone }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            <a href="/user-detail/{{$item->slug}}">detail</a>
+                        </td>
+                    </tr>
             @endforeach
             </tbody>
         </table>

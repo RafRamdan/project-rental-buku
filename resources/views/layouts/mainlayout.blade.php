@@ -19,6 +19,7 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <a class="navbar-brand" href="#">Rental Buku</a>
+              <a class="navbar-brand row justify-content-end" href="/logout">Logout</a>
             </div>
           </nav>
           <div class="body-content h-100">
@@ -34,11 +35,9 @@
                               <a href="/" @if (request()->route()->uri == '/') class="active" @endif>Book List</a>
                               <a href="book-rent" @if (request()->route()->uri == 'book-rent') class="active" @endif>Book Rent</a>
                               <a href="book-return" @if (request()->route()->uri == 'book-return') class="active" @endif>Book Return</a>
-                              <a href="/logout">Logout</a>
                         @else
                               <a href="/profile" @if (request()->route()->uri == 'profile') class="active" @endif>Profile</a>
                               <a href="/" @if (request()->route()->uri == '/') class="active" @endif>Book List</a>
-                              <a href="/logout">Logout</a>
                         @endif
                       @else
                         <a href="/login">Login</a>

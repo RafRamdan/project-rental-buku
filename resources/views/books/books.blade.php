@@ -56,6 +56,7 @@
                         </td>
                         <td>{{ $item->status }}</td>
                         <td>
+                            <a href="/book-detail/{{$item->slug}}">Detail</a>    
                             <a href="/book-edit/{{$item->slug}}">Edit</a>    
                             <a href="/book-delete/{{$item->slug}}">Delete</a>    
                         </td> 

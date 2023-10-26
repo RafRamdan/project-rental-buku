@@ -23,6 +23,12 @@ class BookController extends Controller
         return view('books.books', ['books' => $books, 'count_data' => $countData]);
     }
 
+    public function show($slug)
+    {
+        $book = Book::where('slug', $slug)->first();
+        return view('books.book-detail', ['book' => $book]);
+    }
+
     public function add()
     {
         $categories = Category::all();
@@ -102,16 +108,15 @@ class BookController extends Controller
 
     public function deletedBook()
     {
-        $countData = Book::count();
-
         $deletedBooks = Book::onlyTrashed()->get();
-        return view ('books.book-deleted-list', ['deletedBooks' => $deletedBooks, 'count_data' => $countData]);
+        $countData = Book::onlyTrashed()->count();
+        return view ('books.book-deleted-list', ['deletedBooks' => $deletedBooks,'count_data' => $countData]);
     }
 
     public function restore($slug)
     {
         $book = Book::withTrashed()->where('slug', $slug)->first();
         $book->restore();
-        return redirect('books')->with('status', 'Book Restore Success');
+        return redirect('book-deleted')->with('status', 'Book Restore Success');
     }
 }

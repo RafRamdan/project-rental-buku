@@ -5,6 +5,11 @@
 @section('content')
 
 <h1>New Add Category</h1>
+
+<div class="mt-5 d-flex justify-content-end">
+    <a href="/categories" class="btn btn-info">Back</a>
+</div>
+
 <div class="mt-5 w-50">
 
     @if ($errors->any())

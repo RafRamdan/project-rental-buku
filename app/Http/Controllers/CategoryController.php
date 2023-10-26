@@ -70,13 +70,15 @@ class CategoryController extends Controller
     public function deletedCategory()
     {
         $deletedCategories = Category::onlyTrashed()->get();
-        return view ('categorys.category-deleted-list', ['deletedCategories' => $deletedCategories]);
+        
+        $countData = Category::onlyTrashed()->count();
+        return view ('categorys.category-deleted-list', ['deletedCategories' => $deletedCategories, 'count_data' => $countData]);
     }
 
     public function restore($slug)
     {
         $category = Category::withTrashed()->where('slug', $slug)->first();
         $category->restore();
-        return redirect('categories')->with('status', 'Category Restore Success');
+        return redirect('category-deleted')->with('status', 'Category Restore Success');
     }
 }

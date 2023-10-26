@@ -6,6 +6,10 @@
 
 <h1>Banned List user</h1>
 
+<div class="mt-5 d-flex justify-content-end">
+    <a href="/users" class="btn btn-primary me-3">Back</a>
+</div>
+
     <div class="mt-5">
         @if (session('status'))
             <div class="alert alert-success">
@@ -27,6 +31,11 @@
                 </tr>
             </thead>
             <tbody>
+                @if($count_data == 0)
+                    <tr>
+                        <td colspan="7" style="text-align:center;">No Data</td>
+                    </tr>
+                @endif 
                 @foreach ($bannedUsers as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
