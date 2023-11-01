@@ -57,6 +57,7 @@
                         </td>
                         <td>
                             <a href="/user-detail/{{$item->slug}}">detail</a>
+                            <a href="/user-edit/{{$item->slug}}">edit</a>
                             <a href="/user-ban/{{$item->slug}}">ban user</a>
                         </td>
                     </tr>

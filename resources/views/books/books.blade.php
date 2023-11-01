@@ -50,8 +50,8 @@
                         <td>{{ $item->title }}</td>
                         <td>{{ $item->author }}</td>
                         <td>
-                            @foreach ($item->categories as $category)
-                                {{ $category->name }}
+                            @foreach ($item->categories as $data)
+                                {{ $data->name }}
                             @endforeach
                         </td>
                         <td>{{ $item->status }}</td>

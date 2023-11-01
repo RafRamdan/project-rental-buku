@@ -13,11 +13,11 @@ class BookController extends Controller
         $countData = Book::count();
 
         if($request->has('search')) {
-            $books = Book::where('title','like','%'.$request->search.'%')
+            $books = Book::with('categories')->where('title','like','%'.$request->search.'%')
                          ->orwhere('book_code','like','%'.$request->search.'%')
                          ->paginate(10);
         }else{
-            $books = Book::paginate(10);
+            $books = Book::with('categories')->paginate(10);
         }
 
         return view('books.books', ['books' => $books, 'count_data' => $countData]);

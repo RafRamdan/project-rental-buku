@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function profile(Request $request)
+    public function userRental(Request $request)
     {
         
         $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', Auth::user()->id)->paginate(10);
-        return view('profile.profile', ['rent_logs' => $rentlogs]);
+        return view('rent-logs.user-rental', ['rent_logs' => $rentlogs]);
     }
 
     public function index(Request $request)
@@ -54,6 +54,24 @@ class UserController extends Controller
         $user->save();
 
         return redirect('user-detail/'.$slug)->with('status', 'User Approved Success');
+    }
+
+    public function edit($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+        return view('users.user-edit', ['user' => $user]);
+    }
+
+    public function update(Request $request,$slug)
+    {
+        $validated = $request->validate([
+            'username' => 'required|unique:users|max:100',
+            'nis' => 'required|unique:users|max:100',
+        ]);
+        $user = User::where('slug', $slug)->first();
+        $user->slug = null;
+        $user->update($request->all());
+        return redirect('users')->with('status', 'User Updated Success');
     }
 
     public function delete($slug)

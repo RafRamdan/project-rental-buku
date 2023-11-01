@@ -7,6 +7,7 @@
     <title>Rental buku | @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href={{asset('css/style.css')}}>
 </head>
 
@@ -33,10 +34,11 @@
                               <a href="/users" @if (request()->route()->uri == 'users') class="active" @endif>Users</a>
                               <a href="/rent-logs" @if (request()->route()->uri == 'rent-logs') class="active" @endif>Rent Log</a>
                               <a href="/" @if (request()->route()->uri == '/') class="active" @endif>Book List</a>
-                              <a href="book-rent" @if (request()->route()->uri == 'book-rent') class="active" @endif>Book Rent</a>
+                              <a href="book-rent" @if (request()->route()->uri == 'book-rent') class="active" @endif>Book Rental</a>
                               <a href="book-return" @if (request()->route()->uri == 'book-return') class="active" @endif>Book Return</a>
                         @else
                               <a href="/profile" @if (request()->route()->uri == 'profile') class="active" @endif>Profile</a>
+                              <a href="/user-rental" @if (request()->route()->uri == 'user-rental') class="active" @endif>Your rental log</a>
                               <a href="/" @if (request()->route()->uri == '/') class="active" @endif>Book List</a>
                         @endif
                       @else

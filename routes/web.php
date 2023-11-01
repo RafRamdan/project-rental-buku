@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\profileController;
 use App\Http\Controllers\RentLogController;
 use App\Http\Controllers\BookRentController;
 use App\Http\Controllers\CategoryController;
@@ -34,7 +35,8 @@ Route::middleware('only_guest')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('logout', [AuthController::class, 'logout']);
 
-    Route::get('profile', [UserController::class, 'profile'])->middleware('only_client');
+    Route::get('user-rental', [UserController::class, 'userRental'])->middleware('only_client');
+    Route::get('profile', [profileController::class, 'index'])->middleware('only_client');
     
     Route::middleware('only_admin')->group(function(){
         Route::get('dashboard', [DashboardController::class, 'index']);
@@ -62,6 +64,8 @@ Route::middleware('auth')->group(function(){
         Route::get('users', [UserController::class, 'index']);
         Route::get('registered-user', [UserController::class, 'registeredUser']);
         Route::get('user-detail/{slug}', [UserController::class, 'show']);
+        Route::get('user-edit/{slug}', [UserController::class, 'edit']);
+        Route::post('user-edit/{slug}', [UserController::class, 'update']);
         Route::get('user-approve/{slug}', [UserController::class, 'approve']);
         Route::get('user-ban/{slug}', [UserController::class, 'delete']);
         Route::get('user-destroy/{slug}', [UserController::class, 'destroy']);
@@ -70,12 +74,12 @@ Route::middleware('auth')->group(function(){
 
         Route::get('book-rent', [BookRentController::class, 'index']);
         Route::post('book-rent', [BookRentController::class, 'store']);
+        
+        Route::get('book-return', [BookRentController::class, 'returnBook']);
+        Route::post('book-return', [BookRentController::class, 'saveReturnBook']);
 
         Route::get('rent-logs', [RentLogController::class, 'index']);
         Route::get('exportpdf', [RentLogController::class, 'exportpdf']);
-
-        Route::get('book-return', [BookRentController::class, 'returnBook']);
-        Route::post('book-return', [BookRentController::class, 'saveReturnBook']);
 
     });
 

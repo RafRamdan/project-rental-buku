@@ -15,7 +15,7 @@ class BookRentController extends Controller
     public function index()
     {
         $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
-        $books = Book::all();
+        $books = Book::where('status', '!=', 'not available')->get();
         return view('rental.book-rent', ['users' => $users, 'books' => $books]);
     }
 
@@ -48,7 +48,6 @@ class BookRentController extends Controller
                     $book->status = 'not available';
                     $book->save();
                     DB::commit(); 
-    
                     Session::flash('message', 'Rent book success!!!');
                     Session::flash('alert-class', 'alert-success');
                     return redirect('book-rent');
@@ -62,7 +61,7 @@ class BookRentController extends Controller
     public function returnBook()
     {
         $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
-        $books = Book::all();
+        $books = Book::where('status', '!=', 'in stock')->get();
         return view('return.return-book', ['users' => $users, 'books' => $books]);
     }
 
