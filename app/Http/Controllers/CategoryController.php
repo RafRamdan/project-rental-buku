@@ -69,7 +69,7 @@ class CategoryController extends Controller
 
     public function deletedCategory()
     {
-        $deletedCategories = Category::onlyTrashed()->get();
+        $deletedCategories = Category::onlyTrashed()->paginate(10);
         
         $countData = Category::onlyTrashed()->count();
         return view ('categorys.category-deleted-list', ['deletedCategories' => $deletedCategories, 'count_data' => $countData]);

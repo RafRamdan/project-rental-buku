@@ -6,7 +6,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<h1>New Add Category</h1>
+<h1>New Add Book</h1>
 
 <div class="mt-5 d-flex justify-content-end">
     <a href="/books" class="btn btn-info">Back</a>
@@ -74,7 +74,7 @@
                 @endforeach
             </select>
         </div>
-        
+
         <div class="mt-3">
             <button class="btn btn-success" type="submit">Save</button>
         </div>

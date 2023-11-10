@@ -6,7 +6,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<h1>Edit Category</h1>
+<h1>Edit Book</h1>
 
 <div class="mt-5 d-flex justify-content-end">
     <a href="/books" class="btn btn-info">Back</a>
@@ -58,7 +58,7 @@
 
         <div>
             <label for="description" class="form-label">Description</label>
-            <textarea name="description" id="description" class="form-control" rows="5" required value="{{ $book->description }}"></textarea>
+            <textarea name="description" id="description" class="form-control" rows="5" required >{{ $book->description }}</textarea>
        </div>
 
         <div class="mb-3">

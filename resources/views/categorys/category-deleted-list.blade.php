@@ -44,6 +44,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="card-footer">
+        {{ $deletedCategories->links()  }}
+    </div>
 </div>
 
 @endsection

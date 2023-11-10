@@ -12,7 +12,11 @@ class UserController extends Controller
     public function userRental(Request $request)
     {
         
-        $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', Auth::user()->id)->paginate(10);
+        $rentlogs = RentLogs::with(['user', 'book'])
+            ->where('user_id', Auth::user()->id)
+            ->whereRelation('book', 'deleted_at', '=', null)
+            ->whereRelation('user', 'deleted_at', '=', null)
+            ->get();
         return view('rent-logs.user-rental', ['rent_logs' => $rentlogs]);
     }
 
@@ -43,7 +47,11 @@ class UserController extends Controller
     public function show($slug)
     {
         $user = User::where('slug', $slug)->first();
-        $rentlogs = RentLogs::with(['user', 'book'])->where('user_id', $user->id)->get();
+        $rentlogs = RentLogs::with(['user', 'book'])
+            ->where('user_id', $user->id)
+            ->whereRelation('book', 'deleted_at', '=', null)
+            ->whereRelation('user', 'deleted_at', '=', null)
+            ->get();
         return view('users.user-detail', ['user' => $user, 'rent_logs' => $rentlogs]);
     }
 
@@ -90,7 +98,7 @@ class UserController extends Controller
 
     public function bannedUser()
     {
-        $bannedUsers = User::onlyTrashed()->get();
+        $bannedUsers = User::onlyTrashed()->paginate(10);
 
         $countData = User::onlyTrashed()->count();
         return view('users.user-banned', ['bannedUsers' => $bannedUsers, 'count_data' => $countData]);

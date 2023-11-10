@@ -8,6 +8,12 @@ Tambahan untuk perpustakaan
 - menambahkan profile user dan edit profile ^
 - mengseleksi di book rental user yang sudah limit dan buku yang limit stock habis seharusnya tidak muncul ^
 - mengseleksi di book return hanya user yang sedang meminjam yang tampil dan buku yang sudah habis stock ^
+- menambahkan stock pada buku <
+- jika buku dihapus history log buku menjadi kosong(null) ^
+- cetak pdf rent log mencetak tanda tepat waktu ^
 - menambah role 
-- menambahkan stock pada buku ^
 - mengubah ui book-list,admin,profile, project
+- menambahkan reset password
+- menambahkan kode rent log
+- dalam book list menambahkan deskripsi buku
+- 

@@ -43,14 +43,16 @@ class BookRentController extends Controller
             else{
                 try {
                     DB::beginTransaction();
+                    
                     RentLogs::create($request->all());
                     $book = Book::findOrFail($request->book_id);
                     $book->status = 'not available';
                     $book->save();
-                    DB::commit(); 
+                    DB::commit();
+
                     Session::flash('message', 'Rent book success!!!');
                     Session::flash('alert-class', 'alert-success');
-                    return redirect('book-rent');
+                    return redirect('book-rent'); 
                 } catch (\Throwable $th) {
                     DB::rollBack();
                 }

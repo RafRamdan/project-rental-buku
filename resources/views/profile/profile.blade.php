@@ -114,12 +114,6 @@
 
 <body>
     <div class="container">
-        {{-- <div class="box">
-            <img src="{{ asset('storage/cover/'.$book->cover) }}" alt="">
-            <ul>
-                <li> <a href="/book-edit">Edit</a> </li>
-            </ul>
-        </div> --}}
         <div class="mt-5">
             @if (session('status'))
                 <div class="alert alert-success">
@@ -130,7 +124,6 @@
         <div class="About">
             <ul>
                 <h1>Profile</h1>
-                <li> <a href="/profile-edit">Edit</a> </li>
             </ul>
             <ul>
                 <h3>Username</h3>

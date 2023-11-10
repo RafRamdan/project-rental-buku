@@ -108,7 +108,7 @@ class BookController extends Controller
 
     public function deletedBook()
     {
-        $deletedBooks = Book::onlyTrashed()->get();
+        $deletedBooks = Book::onlyTrashed()->paginate(10);
         $countData = Book::onlyTrashed()->count();
         return view ('books.book-deleted-list', ['deletedBooks' => $deletedBooks,'count_data' => $countData]);
     }

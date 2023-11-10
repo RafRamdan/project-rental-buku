@@ -56,6 +56,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="card-footer">
+        {{ $deletedBooks->links()  }}
+    </div>
 </div>
 
 @endsection

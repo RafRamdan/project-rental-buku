@@ -56,6 +56,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="card-footer">
+            {{ $bannedUsers->links()  }}
+        </div>
     </div>
 
 @endsection

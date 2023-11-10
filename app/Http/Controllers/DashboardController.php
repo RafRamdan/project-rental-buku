@@ -15,7 +15,10 @@ class DashboardController extends Controller
         $bookCount = Book::count();
         $categoryCount = Category::count();
         $userCount = User::where('role_id', '!=', 1)->count();
-        $data = RentLogs::with(['user', 'book'])->get();
+        $data = RentLogs::with(['user', 'book'])
+            ->whereRelation('book', 'deleted_at', '=', null)
+            ->whereRelation('user', 'deleted_at', '=', null)
+            ->paginate(20);
         $borrowedCount = RentLogs::where('actual_return_date', null)->count();
         $returnedCount = RentLogs::where('actual_return_date', '!=', null)->count();
         $countData = RentLogs::count();

@@ -48,6 +48,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="card-footer">
+            {{ $users->links()  }}
+        </div>
     </div>
 
 @endsection

@@ -37,5 +37,8 @@
                 </div>
             @endforeach
         </div>
+        <div class="card-footer">
+            {{ $books->links()  }}
+        </div>
     </div>
 @endsection
