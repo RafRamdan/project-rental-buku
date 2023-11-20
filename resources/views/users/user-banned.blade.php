@@ -7,7 +7,7 @@
 <h1>Banned List user</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/users" class="btn btn-primary me-3">Back</a>
+    <a href="/user" class="btn btn-primary me-3">Back</a>
 </div>
 
     <div class="mt-5">
@@ -50,7 +50,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="/user-restore/{{$item->slug}}">restore</a>
+                            <a href="/user/restore/{{$item->slug}}">restore</a>
                         </td>
                     </tr>
                 @endforeach

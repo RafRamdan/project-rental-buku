@@ -7,7 +7,7 @@
 <h1>Deleted Book List</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/books" class="btn btn-primary me-3">Back</a>
+    <a href="/book" class="btn btn-primary me-3">Back</a>
 </div>
 
 <div class="mt-5">
@@ -50,7 +50,7 @@
                 </td>
                 <td>{{ $item->status }}</td>
                 <td>
-                    <a href="/book-restore/{{$item->slug}}">Restore</a>
+                    <a href="/book/restore/{{$item->slug}}">Restore</a>
                 </td>    
             </tr>
             @endforeach

@@ -114,6 +114,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="card-footer">
+            {{ $data->links()  }}
+        </div>
     </div>
 
 

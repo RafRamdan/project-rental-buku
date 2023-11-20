@@ -7,8 +7,8 @@
 <h1>List user</h1>
 <nav class="navbar">
     <div class="mt-5 d-flex justify-content-end">
-        <a href="/user-banned" class="btn btn-secondary me-3">View Banned User</a>
-        <a href="registered-user" class="btn btn-primary">New Registered User</a>
+        <a href="/user/banned" class="btn btn-secondary me-3">View Banned User</a>
+        <a href="/user/registered" class="btn btn-primary">New Registered User</a>
     </div>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search user or phone" name="search" aria-label="Search" value="{{ request('search') }}">
@@ -56,9 +56,9 @@
                             @endif
                         </td>
                         <td>
-                            <a href="/user-detail/{{$item->slug}}">detail</a>
-                            <a href="/user-edit/{{$item->slug}}">edit</a>
-                            <a href="/user-ban/{{$item->slug}}">ban user</a>
+                            <a href="/user/detail/{{$item->slug}}">detail</a>
+                            <a href="/user/edit/{{$item->slug}}">edit</a>
+                            <a href="/user/ban/{{$item->slug}}">ban user</a>
                         </td>
                     </tr>
                 @endforeach

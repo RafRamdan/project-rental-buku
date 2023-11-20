@@ -11,9 +11,8 @@ Tambahan untuk perpustakaan
 - menambahkan stock pada buku <
 - jika buku dihapus history log buku menjadi kosong(null) ^
 - cetak pdf rent log mencetak tanda tepat waktu ^
-- menambah role 
-- mengubah ui book-list,admin,profile, project
+- menambah role ^
+- mengubah ui book-list,admin,profile, project 
 - menambahkan reset password
 - menambahkan kode rent log
 - dalam book list menambahkan deskripsi buku
-- 

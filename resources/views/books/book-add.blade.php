@@ -9,7 +9,7 @@
 <h1>New Add Book</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/books" class="btn btn-info">Back</a>
+    <a href="/book" class="btn btn-info">Back</a>
 </div>
 
 <div class="mt-5 w-50">
@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <form action="book-add" method="POST" enctype="multipart/form-data">
+    <form action="/book/add" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="code" class="form-label">Code</label>

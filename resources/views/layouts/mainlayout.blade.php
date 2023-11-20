@@ -28,18 +28,24 @@
                   <div class="sidebar col-lg-2 collapse d-lg-block" id="navbarTogglerDemo03">
                       @if (Auth::user())
                         @if (Auth::user()->role_id == 1)
-                              <a href="/dashboard" @if (request()->route()->uri == 'dashboard') class="active" @endif>Dashboard</a>
-                              <a href="/books" @if (request()->route()->uri == 'books') class="active" @endif>Books</a>
-                              <a href="/categories" @if (request()->route()->uri == 'categories') class="active" @endif>Categories</a>
-                              <a href="/users" @if (request()->route()->uri == 'users') class="active" @endif>Users</a>
-                              <a href="/rent-logs" @if (request()->route()->uri == 'rent-logs') class="active" @endif>Rent Log</a>
-                              <a href="/" @if (request()->route()->uri == '/') class="active" @endif>Book List</a>
-                              <a href="book-rent" @if (request()->route()->uri == 'book-rent') class="active" @endif>Book Rental</a>
-                              <a href="book-return" @if (request()->route()->uri == 'book-return') class="active" @endif>Book Return</a>
+                              <a class="{{ request()->is('dashboard*') ? 'active' : '' }}" href="/dashboard">Dashboard</a>
+                              <a class="{{ request()->is('book*') ? 'active' : '' }}" href="/book">Books</a>
+                              <a class="{{ request()->is('category*') ? 'active' : '' }}" href="/category">Categories</a>
+                              <a class="{{ request()->is('user*') ? 'active' : '' }}" href="/user" >Users</a>
+                              <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >Rent Log</a>
+                              <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
+                              <a class="{{ request()->is('book-rent*') ? 'active' : '' }}" href="/book-rent" >Book Rental</a>
+                              <a class="{{ request()->is('book-return*') ? 'active' : '' }}" href="/book-return" >Book Return</a>
+                        @elseif (Auth::user()->role_id == 3)
+                              <a class="{{ request()->is('dashboard/officer*') ? 'active' : '' }}" href="/dashboard/officer">Dashboard</a>
+                              <a class="{{ request()->is('rent-logs/officer*') ? 'active' : '' }}" href="/rent-logs/officer">Rent Log</a>
+                              <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/">Book List</a>
+                              <a class="{{ request()->is('book-rent/officer*') ? 'active' : '' }}" href="/book-rent/officer">Book Rental</a>
+                              <a class="{{ request()->is('book-return/officer*') ? 'active' : '' }}" href="/book-return/officer">Book Return</a>
                         @else
-                              <a href="/profile" @if (request()->route()->uri == 'profile') class="active" @endif>Profile</a>
-                              <a href="/user-rental" @if (request()->route()->uri == 'user-rental') class="active" @endif>Your rental log</a>
-                              <a href="/" @if (request()->route()->uri == '/') class="active" @endif>Book List</a>
+                              <a class="{{ request()->is('profile/officer*') ? 'active' : '' }}" href="/profile" >Profile</a>
+                              <a class="{{ request()->is('user-rental/officer*') ? 'active' : '' }}" href="/user-rental" >Your rental log</a>
+                              <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
                         @endif
                       @else
                         <a href="/login">Login</a>
@@ -52,7 +58,6 @@
           </div>
     </div>
     
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

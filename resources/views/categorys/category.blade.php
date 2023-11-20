@@ -1,14 +1,14 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Category')
+@section('title', 'Categories')
     
 @section('content')
 
 <h1>List Category</h1>
 <nav class="navbar">
     <div class="mt-5 d-flex justify-content-end">
-        <a href="category-deleted" class="btn btn-secondary me-3">View Deleted Data</a>
-        <a href="category-add" class="btn btn-primary">Add Data</a>
+        <a href="/category/deleted" class="btn btn-secondary me-3">View Deleted Data</a>
+        <a href="/category/add" class="btn btn-primary">Add Data</a>
     </div>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search name category" name="search" aria-label="Search" value="{{ request('search') }}">
@@ -45,8 +45,8 @@
                 <td>{{ $loop->iteration }}</td>    
                 <td>{{ $item->name }}</td>
                 <td>
-                    <a href="category-edit/{{$item->slug}}">Edit</a>    
-                    <a href="category-delete/{{$item->slug}}">Delete</a>    
+                    <a href="/category/edit/{{$item->slug}}">Edit</a>    
+                    <a href="/category/delete/{{$item->slug}}">Delete</a>    
                 </td>    
             </tr>
             @endforeach

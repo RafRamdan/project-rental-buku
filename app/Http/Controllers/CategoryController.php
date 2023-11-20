@@ -33,7 +33,7 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::create($request->all());
-        return redirect('categories')->with('status', 'Category added Success');
+        return redirect('/category')->with('status', 'Category added Success');
     }
 
     public function edit($slug)
@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $category = Category::where('slug', $slug)->first();
         $category->slug = null;
         $category->update($request->all());
-        return redirect('categories')->with('status', 'Category Updated Success');
+        return redirect('/category')->with('status', 'Category Updated Success');
     }
 
     public function delete($slug)
@@ -64,7 +64,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
         $category->delete();
-        return redirect('categories')->with('status', 'Category Deleted Success');
+        return redirect('/category')->with('status', 'Category Deleted Success');
     }
 
     public function deletedCategory()
@@ -79,6 +79,6 @@ class CategoryController extends Controller
     {
         $category = Category::withTrashed()->where('slug', $slug)->first();
         $category->restore();
-        return redirect('category-deleted')->with('status', 'Category Restore Success');
+        return redirect('/category/deleted')->with('status', 'Category Restore Success');
     }
 }

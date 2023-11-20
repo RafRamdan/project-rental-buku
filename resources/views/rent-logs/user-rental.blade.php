@@ -1,6 +1,6 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Profile')
+@section('title', 'User Rental Log Book')
 
 @section('content')
 

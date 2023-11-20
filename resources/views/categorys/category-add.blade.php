@@ -7,7 +7,7 @@
 <h1>New Add Category</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/categories" class="btn btn-info">Back</a>
+    <a href="/category" class="btn btn-info">Back</a>
 </div>
 
 <div class="mt-5 w-50">
@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <form action="category-add" method="POST">
+    <form action="/category/add" method="POST">
         @csrf
         <div>
             <label for="name" class="form-label">Name</label>

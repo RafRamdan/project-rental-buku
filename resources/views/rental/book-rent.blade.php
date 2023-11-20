@@ -1,6 +1,6 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Books')
+@section('title', 'Rental Book')
     
 @section('content')
 
@@ -16,8 +16,11 @@
                 </div>
             @endif
         </div>
-
-        <form action="book-rent" method="post">
+        @if (Auth::user()->role_id == 3)
+            <form action="/book-rent/officer" method="post">
+        @else
+            <form action="/book-rent" method="post">
+        @endif
             @csrf
             <div class="mb-3">
                 <label for="user" class="form-label">User</label>

@@ -41,11 +41,15 @@ class AuthController extends Controller
             }
 
             if(Auth::user()->role_id == 1){
-                return redirect('dashboard');
+                return redirect('/dashboard');
             }
 
             if(Auth::user()->role_id == 2){
-                return redirect('profile');
+                return redirect('/profile');
+            }
+
+            if(Auth::user()->role_id == 3){
+                return redirect('/dashboard/officer');
             }
             // $request->session()->regenerate();
             // if
@@ -63,7 +67,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');   
+        return redirect('/login');   
     }
 
     function registerProcess(Request $request){
@@ -82,7 +86,7 @@ class AuthController extends Controller
         Session::flash('status', 'success');
         Session::flash('message', 'Register success.Wait admin to approved');
 
-        return redirect('register');
+        return redirect('/register');
     }
 }
 

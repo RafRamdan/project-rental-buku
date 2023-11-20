@@ -16,8 +16,11 @@
             </div>
         @endif
     </div>
-
-    <form action="book-return" method="post">
+        @if (Auth::user()->role_id == 3)
+            <form action="/book-return/officer" method="post">
+        @else
+            <form action="/book-return" method="post">
+        @endif
         @csrf
         <div class="mb-3">
             <label for="user" class="form-label">User</label>

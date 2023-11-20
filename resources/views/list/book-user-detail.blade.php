@@ -1,13 +1,13 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Detail book')
+@section('title', 'Book User Detail')
 
 @section('content')
 
 <h1>Detail Book</h1>
 
     <div class="mt-5 d-flex justify-content-end">
-        <a href="/book" class="btn btn-info">Back</a>
+        <a href="/" class="btn btn-info">Back</a>
     </div>
 
     <div class="mt-5">
@@ -20,7 +20,7 @@
 
     <div class="my-5 w-25">
         <div class="mb-3">
-            <label for="currentImage" class="form-label" style="display:block">Image</label>
+            <label for="currentImage" class="form-label" style="display:block">Current Image</label>
             @if ($book->cover!='')
                 <img src="{{ asset('storage/cover/'.$book->cover) }}" alt="" width="300px">
             @else 

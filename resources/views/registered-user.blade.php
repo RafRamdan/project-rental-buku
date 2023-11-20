@@ -1,13 +1,13 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Users')
+@section('title', 'Register User')
 
 @section('content')
 
 <h1>New User Registered List</h1>
 
     <div class="mt-5 d-flex justify-content-end">
-        <a href="/users" class="btn btn-primary">Approved User List</a>
+        <a href="/user" class="btn btn-primary">Approved User List</a>
     </div>
 
     <div class="my-5">
@@ -28,7 +28,7 @@
                         <td colspan="7" style="text-align:center;">No Data</td>
                     </tr>
                 @endif 
-                 @foreach ($registeredUsers as $item)
+                 @foreach ($registered_users as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->username }}</td>
@@ -42,14 +42,14 @@
                             @endif
                         </td>
                         <td>
-                            <a href="/user-detail/{{$item->slug}}">detail</a>
+                            <a href="/user/detail/{{$item->slug}}">detail</a>
                         </td>
                     </tr>
             @endforeach
             </tbody>
         </table>
         <div class="card-footer">
-            {{ $users->links()  }}
+            {{ $registered_users->links() }}
         </div>
     </div>
 

@@ -7,7 +7,7 @@
 <h1>Edit Category</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/categories" class="btn btn-info">Back</a>
+    <a href="/category" class="btn btn-info">Back</a>
 </div>
 
 <div class="mt-5 w-50">
@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    <form action="/category-edit/{{$category->slug}}" method="POST">
+    <form action="/category/edit/{{$category->slug}}" method="POST">
         @csrf
         @method('put')
         <div>

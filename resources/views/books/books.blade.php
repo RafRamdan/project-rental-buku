@@ -8,8 +8,8 @@
     <h1>Book List</h1>
     <nav class="navbar">
         <div class="my-5 d-flex justify-content-end">
-            <a href="book-deleted" class="btn btn-secondary me-3">View Deleted Data</a>
-            <a href="book-add" class="btn btn-primary">Add Data Books</a>
+            <a href="/book/deleted" class="btn btn-secondary me-3">View Deleted Data</a>
+            <a href="/book/add" class="btn btn-primary">Add Data Books</a>
         </div>
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search title or code" name="search" aria-label="Search" value="{{ request('search') }}">
@@ -56,9 +56,9 @@
                         </td>
                         <td>{{ $item->status }}</td>
                         <td>
-                            <a href="/book-detail/{{$item->slug}}">Detail</a>    
-                            <a href="/book-edit/{{$item->slug}}">Edit</a>    
-                            <a href="/book-delete/{{$item->slug}}">Delete</a>    
+                            <a href="/book/detail/{{$item->slug}}">Detail</a>    
+                            <a href="/book/edit/{{$item->slug}}">Edit</a>    
+                            <a href="/book/delete/{{$item->slug}}">Delete</a>    
                         </td> 
                     </tr>     
                 @endforeach

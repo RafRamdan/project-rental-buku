@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class OnlyAdmin
+class OnlyOfficer
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class OnlyAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role_id != 1){
+        if(Auth::user()->role_id != 3){
             return redirect('/');
         }
-        
+
         return $next($request);
     }
 }

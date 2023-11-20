@@ -1,6 +1,6 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Add Book')
+@section('title', 'Edit User')
 
 @section('content')
 
@@ -9,7 +9,7 @@
 <h1>User edit</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/users" class="btn btn-info">Back</a>
+    <a href="/user" class="btn btn-info">Back</a>
 </div>
 
 <div class="mt-5 w-50">
@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <form action="/user-edit/{{ $user->slug }}" method="POST" enctype="multipart/form-data">
+    <form action="/user/edit/{{ $user->slug }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>

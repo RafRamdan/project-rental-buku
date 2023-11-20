@@ -1,6 +1,6 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Users')
+@section('title', 'User Detail')
 
 @section('content')
 
@@ -8,9 +8,9 @@
 
     <div class="mt-5 d-flex justify-content-end">
         @if ($user->status == 'inactive')
-            <a href="/user-approve/{{ $user->slug }}" class="btn btn-info">Approve User</a>
+            <a href="/user/approve/{{ $user->slug }}" class="btn btn-info">Approve User</a>
         @else
-            <a href="/users" class="btn btn-info">Back</a>
+            <a href="/user" class="btn btn-info">Back</a>
         @endif
     </div>
 

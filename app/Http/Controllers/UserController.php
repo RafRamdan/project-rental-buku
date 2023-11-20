@@ -40,8 +40,8 @@ class UserController extends Controller
     {
         $countData = User::where('status', 'inactive')->count();
 
-        $registeredUsers = User::where('status', 'inactive')->where('role_id', 2)->get();
-        return view ('registered-user', ['registeredUsers' => $registeredUsers, 'count_data' => $countData]);
+        $registeredUsers = User::where('status', 'inactive')->where('role_id', 2)->paginate(10);
+        return view ('registered-user', ['registered_users' => $registeredUsers, 'count_data' => $countData]);
     }
 
     public function show($slug)
@@ -51,7 +51,7 @@ class UserController extends Controller
             ->where('user_id', $user->id)
             ->whereRelation('book', 'deleted_at', '=', null)
             ->whereRelation('user', 'deleted_at', '=', null)
-            ->get();
+            ->paginate(10);
         return view('users.user-detail', ['user' => $user, 'rent_logs' => $rentlogs]);
     }
 
@@ -61,7 +61,7 @@ class UserController extends Controller
         $user->status = 'active';
         $user->save();
 
-        return redirect('user-detail/'.$slug)->with('status', 'User Approved Success');
+        return redirect('/user/detail/'.$slug)->with('status', 'User Approved Success');
     }
 
     public function edit($slug)
@@ -79,7 +79,7 @@ class UserController extends Controller
         $user = User::where('slug', $slug)->first();
         $user->slug = null;
         $user->update($request->all());
-        return redirect('users')->with('status', 'User Updated Success');
+        return redirect('/user')->with('status', 'User Updated Success');
     }
 
     public function delete($slug)
@@ -93,7 +93,7 @@ class UserController extends Controller
         $user = User::where('slug', $slug)->first();
         $user->delete();
 
-        return redirect('users')->with('status', 'User Deleted Success');
+        return redirect('/user')->with('status', 'User Deleted Success');
     }
 
     public function bannedUser()
@@ -108,7 +108,7 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->where('slug', $slug)->first();
         $user->restore();
-        return redirect('user-banned')->with('status', 'User Restore Success');
+        return redirect('/user/banned')->with('status', 'User Restore Success');
     }
 
 }

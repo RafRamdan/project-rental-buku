@@ -12,11 +12,14 @@ class PublicController extends Controller
     {
         $categories = Category::all();
 
-        if ($request->category || $request->title) {
+        if ($request->title) {
             $books = Book::where('title', 'like', '%'.$request->title.'%')
-                         ->orWhereHas('categories', function($q) use($request) {
-                             $q->where('categories.id', $request->category);
-                         })->paginate(8);
+                         ->paginate(8);
+            $countData = Book::count();
+        } elseif ($request->category) {
+            $books = Book::whereHas('categories', function($q) use($request) {
+                        $q->where('categories.id', $request->category);
+                        })->paginate(8);
             $countData = Book::count();
         }
         else {
@@ -24,6 +27,12 @@ class PublicController extends Controller
             $countData = Book::count();
         }
         return view ('list.book-list', ['books' => $books, 'categories' => $categories, 'count_data' => $countData]);
+    }
+
+    public function show($slug)
+    {
+        $book = Book::where('slug', $slug)->first();
+        return view('list.book-user-detail', ['book' => $book]);
     }
     
 }

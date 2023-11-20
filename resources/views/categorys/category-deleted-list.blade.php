@@ -7,7 +7,7 @@
 <h1>Deleted Category List</h1>
 
 <div class="mt-5 d-flex justify-content-end">
-    <a href="/categories" class="btn btn-primary me-3">Back</a>
+    <a href="/category" class="btn btn-primary me-3">Back</a>
 </div>
 
 <div class="mt-5">
@@ -38,7 +38,7 @@
                 <td>{{ $loop->iteration }}</td>    
                 <td>{{ $item->name }}</td>
                 <td>
-                    <a href="category-restore/{{$item->slug}}">Restore</a>
+                    <a href="/category/restore/{{$item->slug}}">Restore</a>
                 </td>    
             </tr>
             @endforeach

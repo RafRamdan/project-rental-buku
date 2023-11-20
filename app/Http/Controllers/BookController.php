@@ -63,7 +63,7 @@ class BookController extends Controller
             'cover' => $request->cover,
         ]);
         $book->categories()->sync($request->categories);
-        return redirect('books')->with('status', 'Books Added Success');
+        return redirect('/book')->with('status', 'Books Added Success');
     }
 
     public function edit($slug)
@@ -90,7 +90,7 @@ class BookController extends Controller
             $book->categories()->sync($request->categories);
         }
 
-        return redirect('books')->with('status', 'Books Updated Success');
+        return redirect('/book')->with('status', 'Books Updated Success');
     }
 
     public function delete($slug)
@@ -103,7 +103,7 @@ class BookController extends Controller
     {
         $book = Book::where('slug', $slug)->first();
         $book->delete();
-        return redirect('books')->with('status', 'Book Deleted Success');
+        return redirect('/book')->with('status', 'Book Deleted Success');
     }
 
     public function deletedBook()
@@ -117,6 +117,6 @@ class BookController extends Controller
     {
         $book = Book::withTrashed()->where('slug', $slug)->first();
         $book->restore();
-        return redirect('book-deleted')->with('status', 'Book Restore Success');
+        return redirect('/book/deleted')->with('status', 'Book Restore Success');
     }
 }

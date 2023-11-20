@@ -8,13 +8,14 @@ use App\Models\User;
 use App\Models\RentLogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class BookRentController extends Controller
 {
     public function index()
     {
-        $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
+        $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
         $books = Book::where('status', '!=', 'not available')->get();
         return view('rental.book-rent', ['users' => $users, 'books' => $books]);
     }
@@ -29,7 +30,11 @@ class BookRentController extends Controller
         if($book['status'] != 'in stock') {
             Session::flash('message', 'Cannot rent, the book is not avaible');
             Session::flash('alert-class', 'alert-danger');
-            return redirect('book-rent');
+            if(Auth::user()->role_id == 1) {
+                return redirect('/book-rent');
+            }else{
+                return redirect('/book-rent/officer');
+            }
         }
         else{
             $count = RentLogs::where('user_id', $request->user_id)->where('actual_return_date', null)
@@ -38,7 +43,11 @@ class BookRentController extends Controller
             if($count >= 3) {
                 Session::flash('message', 'Cannot rent, user has reach limit of book');
                 Session::flash('alert-class', 'alert-danger');
-                return redirect('book-rent');
+                if(Auth::user()->role_id == 1) {
+                    return redirect('/book-rent');
+                }else{
+                    return redirect('/book-rent/officer');
+                }
             }
             else{
                 try {
@@ -52,7 +61,11 @@ class BookRentController extends Controller
 
                     Session::flash('message', 'Rent book success!!!');
                     Session::flash('alert-class', 'alert-success');
-                    return redirect('book-rent'); 
+                    if(Auth::user()->role_id == 1) {
+                        return redirect('/book-rent');
+                    }else{
+                        return redirect('/book-rent/officer');
+                    } 
                 } catch (\Throwable $th) {
                     DB::rollBack();
                 }
@@ -62,7 +75,7 @@ class BookRentController extends Controller
 
     public function returnBook()
     {
-        $users = User::where('role_id', '!=', 1)->where('status', '!=', 'inactive')->get();
+        $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
         $books = Book::where('status', '!=', 'in stock')->get();
         return view('return.return-book', ['users' => $users, 'books' => $books]);
     }
@@ -82,12 +95,20 @@ class BookRentController extends Controller
 
             Session::flash('message', 'The Book is returned successfull');
             Session::flash('alert-class', 'alert-success');
-            return redirect('book-return');
+            if(Auth::user()->role_id == 1) {
+                return redirect('/book-return');
+            }else{
+                return redirect('/book-return/officer');
+            }
         }
         else {
             Session::flash('message', 'There is error in process');
             Session::flash('alert-class', 'alert-danger');
-            return redirect('book-return');
+            if(Auth::user()->role_id == 1) {
+                return redirect('/book-return');
+            }else{
+                return redirect('/book-return/officer');
+            }
         }
     }
 }
