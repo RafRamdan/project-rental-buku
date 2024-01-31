@@ -28,11 +28,5 @@ class PublicController extends Controller
         }
         return view ('list.book-list', ['books' => $books, 'categories' => $categories, 'count_data' => $countData]);
     }
-
-    public function show($slug)
-    {
-        $book = Book::where('slug', $slug)->first();
-        return view('list.book-user-detail', ['book' => $book]);
-    }
     
 }

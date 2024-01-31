@@ -26,7 +26,11 @@ class BookController extends Controller
     public function show($slug)
     {
         $book = Book::where('slug', $slug)->first();
-        return view('books.book-detail', ['book' => $book]);
+        if (Auth::user()->role_id == 1) {
+            return view('books.book-detail', ['book' => $book]);
+        }else {
+            return view('list.book-user-detail', ['book' => $book]);
+        }
     }
 
     public function add()
@@ -42,6 +46,7 @@ class BookController extends Controller
             'title' => 'required|max:255',
             'publisher' => 'required|max:225',
             'author' => 'required|max:255',
+            'publication_date' => 'required',
         ]);
         $newName = '';
         if($request->file('image')){

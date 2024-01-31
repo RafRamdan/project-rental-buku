@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DummyController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\RentLogController;
@@ -21,9 +22,12 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('index', [DummyController::class, 'index']);
+Route::get('daftar', [DummyController::class, 'daftar']);
+Route::get('dummy', [DummyController::class, 'dummy']);
 
 Route::get('/', [PublicController::class, 'index']);
-Route::get('/detail/{slug}', [PublicController::class, 'show']);
+Route::get('/detail/{slug}', [BookController::class, 'show']);
 
 Route::middleware('only_guest')->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -42,11 +46,11 @@ Route::middleware('auth')->group(function(){
     Route::middleware('only_officer')->group(function(){
         Route::get('/dashboard/officer', [DashboardController::class, 'index']);
         
-        Route::get('/book-rent/officer', [BookRentController::class, 'index']);
-        Route::post('/book-rent/officer', [BookRentController::class, 'store']);
+        Route::get('/rent-book/officer', [BookRentController::class, 'index']);
+        Route::post('/rent-book/officer', [BookRentController::class, 'store']);
                 
-        Route::get('/book-return/officer', [BookRentController::class, 'returnBook']);
-        Route::post('/book-return/officer', [BookRentController::class, 'saveReturnBook']);
+        Route::get('/return-book/officer', [BookRentController::class, 'returnBook']);
+        Route::post('/return-book/officer', [BookRentController::class, 'saveReturnBook']);
         
         Route::get('/rent-logs/officer', [RentLogController::class, 'index']);
         Route::get('/exportpdf/officer', [RentLogController::class, 'exportpdf']);
@@ -88,11 +92,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/user/banned', [UserController::class, 'bannedUser']);
         Route::get('/user/restore/{slug}', [UserController::class, 'restore']);
 
-        Route::get('/book-rent', [BookRentController::class, 'index']);
-        Route::post('/book-rent', [BookRentController::class, 'store']);
+        Route::get('/rent-book', [BookRentController::class, 'index']);
+        Route::post('/rent-book', [BookRentController::class, 'store']);
                     
-        Route::get('/book-return', [BookRentController::class, 'returnBook']);
-        Route::post('/book-return', [BookRentController::class, 'saveReturnBook']);
+        Route::get('/return-book', [BookRentController::class, 'returnBook']);
+        Route::post('/return-book', [BookRentController::class, 'saveReturnBook']);
             
         Route::get('/rent-logs', [RentLogController::class, 'index']);
         Route::get('/exportpdf', [RentLogController::class, 'exportpdf']);

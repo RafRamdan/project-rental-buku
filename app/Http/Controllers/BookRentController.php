@@ -31,7 +31,7 @@ class BookRentController extends Controller
             Session::flash('message', 'Cannot rent, the book is not avaible');
             Session::flash('alert-class', 'alert-danger');
             if(Auth::user()->role_id == 1) {
-                return redirect('/book-rent');
+                return redirect('/rent-book');
             }else{
                 return redirect('/book-rent/officer');
             }
@@ -44,7 +44,7 @@ class BookRentController extends Controller
                 Session::flash('message', 'Cannot rent, user has reach limit of book');
                 Session::flash('alert-class', 'alert-danger');
                 if(Auth::user()->role_id == 1) {
-                    return redirect('/book-rent');
+                    return redirect('/rent-book');
                 }else{
                     return redirect('/book-rent/officer');
                 }
@@ -62,7 +62,7 @@ class BookRentController extends Controller
                     Session::flash('message', 'Rent book success!!!');
                     Session::flash('alert-class', 'alert-success');
                     if(Auth::user()->role_id == 1) {
-                        return redirect('/book-rent');
+                        return redirect('/rent-book');
                     }else{
                         return redirect('/book-rent/officer');
                     } 
@@ -96,7 +96,7 @@ class BookRentController extends Controller
             Session::flash('message', 'The Book is returned successfull');
             Session::flash('alert-class', 'alert-success');
             if(Auth::user()->role_id == 1) {
-                return redirect('/book-return');
+                return redirect('/return-book');
             }else{
                 return redirect('/book-return/officer');
             }
@@ -105,7 +105,7 @@ class BookRentController extends Controller
             Session::flash('message', 'There is error in process');
             Session::flash('alert-class', 'alert-danger');
             if(Auth::user()->role_id == 1) {
-                return redirect('/book-return');
+                return redirect('/return-book');
             }else{
                 return redirect('/book-return/officer');
             }

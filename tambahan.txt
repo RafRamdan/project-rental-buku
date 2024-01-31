@@ -12,6 +12,7 @@ Tambahan untuk perpustakaan
 - jika buku dihapus history log buku menjadi kosong(null) ^
 - cetak pdf rent log mencetak tanda tepat waktu ^
 - menambah role ^
+- menambahkan officer dan tampilan officer
 - mengubah ui book-list,admin,profile, project 
 - menambahkan reset password
 - menambahkan kode rent log

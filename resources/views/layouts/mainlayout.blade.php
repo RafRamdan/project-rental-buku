@@ -34,8 +34,8 @@
                               <a class="{{ request()->is('user*') ? 'active' : '' }}" href="/user" >Users</a>
                               <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >Rent Log</a>
                               <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
-                              <a class="{{ request()->is('book-rent*') ? 'active' : '' }}" href="/book-rent" >Book Rental</a>
-                              <a class="{{ request()->is('book-return*') ? 'active' : '' }}" href="/book-return" >Book Return</a>
+                              <a class="{{ request()->is('rent-book*') ? 'active' : '' }}" href="/rent-book" >Book Rental</a>
+                              <a class="{{ request()->is('return-book*') ? 'active' : '' }}" href="/return-book" >Book Return</a>
                         @elseif (Auth::user()->role_id == 3)
                               <a class="{{ request()->is('dashboard/officer*') ? 'active' : '' }}" href="/dashboard/officer">Dashboard</a>
                               <a class="{{ request()->is('rent-logs/officer*') ? 'active' : '' }}" href="/rent-logs/officer">Rent Log</a>

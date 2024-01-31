@@ -19,7 +19,7 @@
         @if (Auth::user()->role_id == 3)
             <form action="/book-return/officer" method="post">
         @else
-            <form action="/book-return" method="post">
+            <form action="/return-book" method="post">
         @endif
         @csrf
         <div class="mb-3">
