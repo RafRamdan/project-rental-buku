@@ -13,64 +13,75 @@ use Illuminate\Support\Facades\Session;
 
 class BookRentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
-        $books = Book::where('status', '!=', 'not available')->get();
-        return view('rental.book-rent', ['users' => $users, 'books' => $books]);
+        $countData = RentLogs::where('verification', '=', 'Permintaan')->count();
+        // $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
+        // $books = Book::where('status', '!=', 'not available')->get();
+        $log_data = RentLogs::with(['user', 'book'])->where('verification', '=', 'Permintaan')->get();
+        return view('rental.book-rent', ['log_data' => $log_data, 'count_data' => $countData]);
+        
     }
 
-    public function store(Request $request)
+    public function show()
     {
-        $request['rent_date'] = Carbon::now()->toDateString();
-        $request['return_date'] = Carbon::now()->addDay(3)->toDateString();
+        # code...
+    }
 
-        $book = Book::findOrFail($request->book_id)->only('status');
-
-        if($book['status'] != 'in stock') {
-            Session::flash('message', 'Cannot rent, the book is not avaible');
-            Session::flash('alert-class', 'alert-danger');
-            if(Auth::user()->role_id == 1) {
-                return redirect('/rent-book');
-            }else{
-                return redirect('/book-rent/officer');
+    public function edit($id)
+    {
+        $detail = RentLogs::with(['user', 'book'])->where('id', $id)->first();
+        if (Auth::user()) {
+            if (Auth::user()->role_id == 1) {
+                return view('rental.book-approve', ['detail' => $detail]);
+            }else {
+                return view('list.book-user-detail', ['detail' => $detail]);
             }
         }
-        else{
-            $count = RentLogs::where('user_id', $request->user_id)->where('actual_return_date', null)
-            ->count();
+    }
+       
+    public function update(Request $request)
+    {
+        $status = [
+            'status' => $request['status']
+        ];
 
-            if($count >= 3) {
-                Session::flash('message', 'Cannot rent, user has reach limit of book');
-                Session::flash('alert-class', 'alert-danger');
-                if(Auth::user()->role_id == 1) {
-                    return redirect('/rent-book');
-                }else{
-                    return redirect('/book-rent/officer');
-                }
+        $status_created = [
+            'status' => $request['status'],
+            'created_at' => now(),
+        ];
+
+        $stockMin = [
+            'stock' => $booking->book->stock - 1,
+        ];
+
+        $stockPlus = [
+            'stock' => $booking->book->stock + 1,
+        ];
+
+        if ($booking->book->stock > 0) {
+            if ($request['status'] == 'Disetujui') {
+                $booking->update($status_created);
+                $booking->book->update($stockMin);
+            } else if ($request['status'] == 'Ditolak') {
+                $booking->update($status);
+            } else if ($request['status'] == 'Dikembalikan') {
+                $booking->update($status);
+                $booking->book->update($stockPlus);
             }
-            else{
-                try {
-                    DB::beginTransaction();
-                    
-                    RentLogs::create($request->all());
-                    $book = Book::findOrFail($request->book_id);
-                    $book->status = 'not available';
-                    $book->save();
-                    DB::commit();
-
-                    Session::flash('message', 'Rent book success!!!');
-                    Session::flash('alert-class', 'alert-success');
-                    if(Auth::user()->role_id == 1) {
-                        return redirect('/rent-book');
-                    }else{
-                        return redirect('/book-rent/officer');
-                    } 
-                } catch (\Throwable $th) {
-                    DB::rollBack();
-                }
+        } else {
+            if ($request['status'] == 'Ditolak') {
+                $booking->update($status);
+            } else if ($request['status'] == 'Dikembalikan') {
+                $booking->update($status);
+                $booking->book->update($stockPlus);
+            } else {
+                return redirect()->back()->with('failed', 'Stock buku habis, tidak bisa menyetujui peminjaman!');
             }
         }
+
+        return redirect('/admin/booking');
+    
     }
 
     public function returnBook()

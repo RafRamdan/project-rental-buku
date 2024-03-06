@@ -23,7 +23,7 @@ class PublicController extends Controller
             $countData = Book::count();
         }
         else {
-            $books = Book::paginate(8);
+            $books = Book::orderBy('book_code')->paginate(8);
             $countData = Book::count();
         }
         return view ('list.book-list', ['books' => $books, 'categories' => $categories, 'count_data' => $countData]);

@@ -46,14 +46,29 @@
                         <div class="card-body">
                             <h5 class="card-title"><a href="/detail/{{$item->slug}}">{{ $item->book_code }}</a></h5>
                             <p class="card-text">{{ $item->title }}</p>
+                            <div class="container text-center">
+                                <div class="row">
+                                    <p class="col">Kategori:</p>
+                                    @foreach ($books[0]->categories as $category)
+                                    <p class="col">{{ $category->name }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
                             <p class="card-text text-end fw-bold {{ $item->status == 'in stock' ? 'text-success' : 'text-danger' }}">{{ $item->status }}</p>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+        @if ( request()->get('title') || (request()->get('category')))
+        <div class="card-footer">
+            {{ $books->appends(request()->input())->links()}}
+        </div> 
+        @else
         <div class="card-footer">
             {{ $books->links()  }}
         </div>
+        @endif
+        
     </div>
 @endsection

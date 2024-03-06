@@ -56,6 +56,11 @@
             <input type="text" name="page" id="page" class="form-control" placeholder="Book's Page" value="{{ old('page') }}">
         </div>
 
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="text" name="stock" id="stock" class="form-control" placeholder="Book's Stock" value="{{ old('stock') }}">
+        </div>
+
         <div>
             <label for="description" class="form-label">Description</label>
             <textarea name="description" id="description" class="form-control" rows="5" required></textarea>

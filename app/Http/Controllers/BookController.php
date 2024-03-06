@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -26,10 +27,15 @@ class BookController extends Controller
     public function show($slug)
     {
         $book = Book::where('slug', $slug)->first();
-        if (Auth::user()->role_id == 1) {
-            return view('books.book-detail', ['book' => $book]);
-        }else {
-            return view('list.book-user-detail', ['book' => $book]);
+        if (Auth::user()) {
+            if (Auth::user()->role_id == 1) {
+                return view('books.book-detail', ['book' => $book]);
+            }else {
+                return view('list.book-user-detail', ['book' => $book]);
+            }
+        }
+        else {
+        return view('list.book-user-detail', ['book' => $book]);
         }
     }
 
@@ -46,6 +52,7 @@ class BookController extends Controller
             'title' => 'required|max:255',
             'publisher' => 'required|max:225',
             'author' => 'required|max:255',
+            'stock' => 'required',
             'publication_date' => 'required',
         ]);
         $newName = '';
@@ -62,6 +69,7 @@ class BookController extends Controller
             'author' => $request->author,
             'description' => $request->description,
             'page' => $request->page,
+            'stock' => $request->stock,
             'publisher' => $request->publisher,
             'slug' => $request->slug,
             'publication_date' => $request->publication_date,

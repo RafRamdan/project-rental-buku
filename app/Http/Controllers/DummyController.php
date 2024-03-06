@@ -50,4 +50,9 @@ class DummyController extends Controller
         return view ('ui.detail', ['books' => $books]);
     }
 
+    public function home()
+    {
+        return view ('layouts.master');
+    }
+
 }
