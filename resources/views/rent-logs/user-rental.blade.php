@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>Your list rent logs</h1>
+<h1>Your list borrowing history</h1>
 
 <div class="mt-5">
     <table class="table">

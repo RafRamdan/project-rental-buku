@@ -31,7 +31,7 @@
                     <th>No.</th>
                     <th>Username</th>
                     <th>Nis</th>
-                    <th>Class</th>
+                    {{-- <th>Class</th> --}}
                     <th>Phone</th>
                     <th>Action</th>
                 </tr>
@@ -47,7 +47,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->nis }}</td>
-                        <td>{{ $item->class }}</td>
+                        {{-- <td>{{ $item->class }}</td> --}}
                         <td>
                             @if ($item->phone)
                                 {{ $item->phone }}

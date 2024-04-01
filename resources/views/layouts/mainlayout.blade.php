@@ -42,7 +42,7 @@
                               <a class="{{ request()->is('user*') ? 'active' : '' }}" href="/user" >Users</a>
                               <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >Rent Log</a>
                               <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
-                              <a class="{{ request()->is('rent-book*') ? 'active' : '' }}" href="/rent-book" >Borrow Book</a>
+                              <a class="{{ request()->is('borrow-book*') ? 'active' : '' }}" href="/borrow-book" >Borrow Book</a>
                               <a class="{{ request()->is('return-book*') ? 'active' : '' }}" href="/return-book" >Book Return</a>
                         @elseif (Auth::user()->role_id == 3)
                               <a class="{{ request()->is('dashboard/officer*') ? 'active' : '' }}" href="/dashboard/officer">Dashboard</a>
@@ -51,8 +51,8 @@
                               <a class="{{ request()->is('book-rent/officer*') ? 'active' : '' }}" href="/book-rent/officer">Book Pinjam</a>
                               <a class="{{ request()->is('book-return/officer*') ? 'active' : '' }}" href="/book-return/officer">Book Return</a>
                         @else
-                              <a class="{{ request()->is('profile*') ? 'active' : '' }}" href="/profile" >Profile</a>
-                              <a class="{{ request()->is('user-rental*') ? 'active' : '' }}" href="/user-rental" >Your rental log</a>
+                              {{-- <a class="{{ request()->is('profile*') ? 'active' : '' }}" href="/profile" >Profile</a> --}}
+                              <a class="{{ request()->is('user-rental*') ? 'active' : '' }}" href="/user-rental" >Your borrowing history</a>
                               <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
                         @endif
                       @endif

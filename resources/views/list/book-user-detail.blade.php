@@ -67,6 +67,52 @@
             <label for="" class="form-label">Status</label>
             <input type="text" class="form-control" readonly value="{{$book->status}}">
         </div>
-    </div>
-
+        @if ($book->status == 'in stock')
+     
+            <div class="card-body">
+                @auth
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Pinjam Buku
+                </button>
+                @else
+                <a href="/login" class="btn btn-info" >Pinjam Buku</a>
+                @endauth
+            </div>
+   
+        @endif  
+</div>
 @endsection
+@if (Auth::user())
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form action="/borrowing" method="post">
+          @csrf
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Pinjam Buku {{ $book->title }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{-- <div class="mb-3">
+              <label for="alasan" class="form-label">Alasan Pinjam</label>
+              <textarea class="form-control" id="alasan" rows="3" name="alasan"></textarea>
+            </div> --}}
+            <div class="mb-3">
+              <label for="return_date" class="form-label">Meminjam sampai tanggal</label>
+              <input type="date" class="form-control" id="return_date" name="return_date">
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              {{-- <input type="text" name="user_id" value="{{ auth()->user->id }}" hidden> --}}
+              <input type="text" name="book_id" value="{{ $book->id }}" hidden>
+              <input type="text" name="user_id" value="{{ auth()->user()->id }}" hidden>
+              <input type="text" name="verification" value="{{ 'Permintaan' }}" hidden>
+              <button type="submit" class="btn btn-info">Setuju Pinjam</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+@endif

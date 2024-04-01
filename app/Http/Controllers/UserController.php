@@ -9,16 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function userRental(Request $request)
-    {
-        
-        $rentlogs = RentLogs::with(['user', 'book'])
-            ->where('user_id', Auth::user()->id)
-            ->whereRelation('book', 'deleted_at', '=', null)
-            ->whereRelation('user', 'deleted_at', '=', null)
-            ->get();
-        return view('rent-logs.user-rental', ['rent_logs' => $rentlogs]);
-    }
 
     public function index(Request $request)
     {

@@ -12,6 +12,14 @@
        text-decoration: none;
     }
 </style>
+    <h1>List book</h1>
+    <div class="mt-5">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+    </div>
 
     <form action="" method="GET">
         <div class="row ">

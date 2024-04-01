@@ -11,6 +11,7 @@ use App\Http\Controllers\RentLogController;
 use App\Http\Controllers\BookRentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BorrowingUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,8 @@ Route::middleware('only_guest')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/user-rental', [UserController::class, 'userRental'])->middleware('only_client');
+    Route::get('/user-rental', [BorrowingUserController::class, 'userRental'])->middleware('only_client');
+    Route::post('/borrowing', [BorrowingUserController::class, 'borrowing'])->middleware('only_client');
     Route::get('/profile', [profileController::class, 'index'])->middleware('only_client');
 
     Route::middleware('only_officer')->group(function(){
@@ -92,17 +94,18 @@ Route::middleware('auth')->group(function(){
         Route::get('/user/banned', [UserController::class, 'bannedUser']);
         Route::get('/user/restore/{slug}', [UserController::class, 'restore']);
 
-        Route::get('/book-rent', [BookRentController::class, 'index']);
-        Route::get('/book-rent/{id}/edit', [BookRentController::class, 'edit']);
-        Route::put('/book-rent/{id}', [BookRentController::class, 'update']);
+        Route::get('/borrow-book', [BookRentController::class, 'index']);
+        Route::get('/borrow-book/{id}/edit', [BookRentController::class, 'edit']);
+        Route::put('/borrow-book/{id}', [BookRentController::class, 'update']);
         
         Route::get('/return-book', [BookRentController::class, 'returnBook']);
-        Route::post('/return-book', [BookRentController::class, 'saveReturnBook']);
+        Route::get('/return-book/{id}/edit', [BookRentController::class, 'show']);
+        Route::put('/return-book/{id}', [BookRentController::class, 'saveReturnBook']);
             
         Route::get('/rent-logs', [RentLogController::class, 'index']);
         Route::get('/exportpdf', [RentLogController::class, 'exportpdf']);
 
-        route::get('/master', [DummyController::class, 'home']);
+        // route::get('/master', [DummyController::class, 'home']);
     });
 
 });

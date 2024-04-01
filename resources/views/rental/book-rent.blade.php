@@ -7,12 +7,12 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-md-3">
-        <h1 class="mb-5">Book Rent Form</h1>
+        <h1 class="mb-5">Borrow Book Form</h1>
     </div>
         <div class="mt-5">
-            @if (session('message'))
-                <div class="alert {{session('alert-class')}}">
-                    {{ session('message') }}
+             @if (session('status'))
+                 <div class="alert alert-success">
+                    {{ session('status') }}
                 </div>
             @endif
         </div>
@@ -46,7 +46,7 @@
                             <td>{{ $item->actual_return_date }}</td>
                             
                             <td>
-                                <a href="/rent-book/approve/{{$item->id}}">detail</a>    
+                                <a href="/borrow-book/{{$item->id}}/edit">detail</a>    
                             </td> 
                             
                         </tr>     

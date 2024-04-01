@@ -4,11 +4,12 @@
 
 @section('content')
 
-<h1>Borrow Book Approve</h1>
+<h1>Return Approve</h1>
 
     <div class="mt-5 d-flex justify-content-end">
-        <a href="/borrow-book" class="btn btn-info">Back</a>
+        <a href="/return-book" class="btn btn-info">Back</a>
     </div>
+
         <div class="my-5 w-25">
             <div class="mb-3">
                 <label for="" class="form-label">nama user</label>
@@ -28,7 +29,7 @@
             </div>
 
             <div class="card-body">
-                <form action="/borrow-book/{{ $detail->id }}" method="post">
+                <form action="/return-book/{{ $detail->id }}" method="post">
                   @csrf
                   @method('put')
                   <select class="form-select" name="verification">

@@ -23,11 +23,6 @@ class BookRentController extends Controller
         
     }
 
-    public function show()
-    {
-        # code...
-    }
-
     public function edit($id)
     {
         $detail = RentLogs::with(['user', 'book'])->where('id', $id)->first();
@@ -40,86 +35,114 @@ class BookRentController extends Controller
         }
     }
        
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $status = [
-            'status' => $request['status']
+        $borrow = RentLogs::with(['user', 'book'])->where('id', $id)->first();
+        
+        $verification = [
+            'verification' => $request['verification']
         ];
 
-        $status_created = [
-            'status' => $request['status'],
-            'created_at' => now(),
+        $status = [
+            'status' => 'not available',
         ];
+        // $status_created = [
+        //     'verification' => $request['verification'],
+        //     'created_at' => now(),
+        // ];
 
         $stockMin = [
-            'stock' => $booking->book->stock - 1,
+            'stock' => $borrow->book->stock - 1,
         ];
 
-        $stockPlus = [
-            'stock' => $booking->book->stock + 1,
-        ];
+        // $stockPlus = [
+        //     'stock' => $booking->book->stock + 1,
+        // ];
 
-        if ($booking->book->stock > 0) {
-            if ($request['status'] == 'Disetujui') {
-                $booking->update($status_created);
-                $booking->book->update($stockMin);
-            } else if ($request['status'] == 'Ditolak') {
-                $booking->update($status);
-            } else if ($request['status'] == 'Dikembalikan') {
-                $booking->update($status);
-                $booking->book->update($stockPlus);
-            }
+        if ($borrow->book->stock > 0) {
+            if ($request['verification'] == 'Disetujui') {
+                $borrow->update($verification);
+                $borrow->book->update($stockMin);
+            } else if ($request['verification'] == 'Ditolak') {
+                $borrow->update($verification);
+            } 
+            // else if ($request['status'] == 'Dikembalikan') {
+            //     $borrow->update($status);
+            //     $borrow->book->update($stockPlus);
+            // }
         } else {
-            if ($request['status'] == 'Ditolak') {
-                $booking->update($status);
-            } else if ($request['status'] == 'Dikembalikan') {
-                $booking->update($status);
-                $booking->book->update($stockPlus);
-            } else {
+            if ($request['verification'] == 'Ditolak') {
+                $borrow->update($verification);
+                // $borrow->book->update($status);
+            }
+            //  else if ($request['status'] == 'Dikembalikan') {
+            //     $borrow->update($status);
+            //     $borrow->book->update($stockPlus);
+            // } 
+            else {
                 return redirect()->back()->with('failed', 'Stock buku habis, tidak bisa menyetujui peminjaman!');
             }
         }
 
-        return redirect('/admin/booking');
+        return redirect('/borrow-book')->with('status', 'Borrow Book Update Success');
     
     }
 
     public function returnBook()
     {
-        $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
-        $books = Book::where('status', '!=', 'in stock')->get();
-        return view('return.return-book', ['users' => $users, 'books' => $books]);
+        $countData = RentLogs::where('verification', '=', 'Disetujui')->count();
+        // $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
+        // $books = Book::where('status', '!=', 'not available')->get();
+        $log_data = RentLogs::with(['user', 'book'])->where('verification', '=', 'Disetujui')->get();
+        return view('return.return-book', ['log_data' => $log_data, 'count_data' => $countData]);
     }
 
-    public function saveReturnBook(Request $request)
+    public function show($id)
     {
-        $rent = RentLogs::where('user_id', $request->user_id)->where('book_id', $request->book_id)->where('actual_return_date', null);
-        $rentData = $rent->first();
-        $countData = $rent->count();
-
-        if($countData == 1) {
-            $rentData->actual_return_date = Carbon::now()->toDateString();
-            $book = Book::findOrFail($request->book_id);
-            $book->status = 'in stock';
-            $book->save();
-            $rentData->save();
-
-            Session::flash('message', 'The Book is returned successfull');
-            Session::flash('alert-class', 'alert-success');
-            if(Auth::user()->role_id == 1) {
-                return redirect('/return-book');
-            }else{
-                return redirect('/book-return/officer');
+        $detail = RentLogs::with(['user', 'book'])->where('id', $id)->first();
+        if (Auth::user()) {
+            if (Auth::user()->role_id == 1) {
+                return view('return.return-approve', ['detail' => $detail]);
+            }else {
+                return view('list.book-user-detail', ['detail' => $detail]);
             }
         }
-        else {
-            Session::flash('message', 'There is error in process');
-            Session::flash('alert-class', 'alert-danger');
-            if(Auth::user()->role_id == 1) {
-                return redirect('/return-book');
-            }else{
-                return redirect('/book-return/officer');
-            }
-        }
+    }
+
+    public function saveReturnBook(Request $request, $id)
+    {
+        // dd(request()->all());
+        $borrow = RentLogs::with(['user', 'book'])->where('id', $id)->first();
+        
+        $verification = [
+            'verification' => $request['verification']
+        ];
+
+        $borrow->actual_return_date = Carbon::now()->toDateString();
+        
+        // $status_created = [
+        //     'verification' => $request['verification'],
+        //     'created_at' => now(),
+        // ];
+
+        $stockPlus = [
+            'stock' => $borrow->book->stock + 1,
+        ];
+
+        // $stockPlus = [
+        //     'stock' => $booking->book->stock + 1,
+        // ];
+
+        $borrow->update($verification);
+        $borrow->book->update($stockPlus);
+        $borrow->save();
+
+            // else if ($request['status'] == 'Dikembalikan') {
+            //     $borrow->update($status);
+            //     $borrow->book->update($stockPlus);
+            // }
+
+        return redirect('/return-book')->with('status', 'Return Book Success');
+    
     }
 }
