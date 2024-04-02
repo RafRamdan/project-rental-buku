@@ -37,7 +37,7 @@
                       <option value="Disetujui">Setujui Peminjaman</option>
                       <option value="Ditolak">Tolak Peminjaman</option>
                     @elseif($detail->verification == "Disetujui")
-                      <option value="Dikembalikan">Peminjaman Dikembalikan</option>
+                      <option value="Dikembalikan">Buku Dikembalikan</option>
                     @endif
                   </select>
 

@@ -44,7 +44,7 @@ class BookRentController extends Controller
         ];
 
         $status = [
-            'status' => 'not available',
+            'status' => $borrow->book->status = 'not available',
         ];
         // $status_created = [
         //     'verification' => $request['verification'],
@@ -59,10 +59,11 @@ class BookRentController extends Controller
         //     'stock' => $booking->book->stock + 1,
         // ];
 
-        if ($borrow->book->stock > 0) {
+        if ($borrow->book->stock == 1) {
             if ($request['verification'] == 'Disetujui') {
                 $borrow->update($verification);
                 $borrow->book->update($stockMin);
+                $borrow->book->update($status);
             } else if ($request['verification'] == 'Ditolak') {
                 $borrow->update($verification);
             } 
@@ -70,7 +71,14 @@ class BookRentController extends Controller
             //     $borrow->update($status);
             //     $borrow->book->update($stockPlus);
             // }
-        } else {
+        }else if ($borrow->book->stock > 1){
+            if ($request['verification'] == 'Disetujui') {
+                $borrow->update($verification);
+                $borrow->book->update($stockMin);
+            } else if ($request['verification'] == 'Ditolak') {
+                $borrow->update($verification);
+            } 
+        }else {
             if ($request['verification'] == 'Ditolak') {
                 $borrow->update($verification);
                 // $borrow->book->update($status);
@@ -80,7 +88,7 @@ class BookRentController extends Controller
             //     $borrow->book->update($stockPlus);
             // } 
             else {
-                return redirect()->back()->with('failed', 'Stock buku habis, tidak bisa menyetujui peminjaman!');
+                return redirect('/borrow-book')->with('failed', 'Stock buku habis, tidak bisa menyetujui peminjaman!');
             }
         }
 
@@ -129,13 +137,22 @@ class BookRentController extends Controller
             'stock' => $borrow->book->stock + 1,
         ];
 
+        $status = [
+            'status' => $borrow->book->status = 'in stock',
+        ];
         // $stockPlus = [
         //     'stock' => $booking->book->stock + 1,
         // ];
-
-        $borrow->update($verification);
-        $borrow->book->update($stockPlus);
-        $borrow->save();
+        if ($borrow->book->stock == 0) {
+            $borrow->update($verification);
+            $borrow->book->update($stockPlus);
+            $borrow->book->update($status);
+            $borrow->save();
+        }else{
+            $borrow->update($verification);
+            $borrow->book->update($stockPlus);
+            $borrow->save();
+        }
 
             // else if ($request['status'] == 'Dikembalikan') {
             //     $borrow->update($status);

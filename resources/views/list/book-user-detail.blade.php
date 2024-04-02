@@ -98,10 +98,10 @@
               <label for="alasan" class="form-label">Alasan Pinjam</label>
               <textarea class="form-control" id="alasan" rows="3" name="alasan"></textarea>
             </div> --}}
-            <div class="mb-3">
+            {{-- <div class="mb-3">
               <label for="return_date" class="form-label">Meminjam sampai tanggal</label>
               <input type="date" class="form-control" id="return_date" name="return_date">
-            </div>
+            </div> --}}
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -21,23 +21,25 @@ class BorrowingUserController extends Controller
 
     public function borrowing(Request $request)
     {
-        // dd(request()->all());
+        
         $validate = $request->validate([
             'user_id' => 'required',
             'book_id' => 'required',
             'verification' => 'required',
-            'return_date' => 'required'
+            // 'return_date' => 'required'
             // 'code' => 'required',
         ]);
         $request['rent_date'] = Carbon::now()->toDateString();
-
+        $request['return_date'] = Carbon::now()->addDay(3)->toDateString();
+        // dd(request()->all());
         $borrow = RentLogs::create([
             'user_id' => $request->user_id,
             'book_id' => $request->book_id,
             'verification' => $request->verification,
-            'return_date' => $request->return_date,
             'rent_date' => $request->rent_date,
+            'return_date' => $request->return_date,
         ]);
+
         // RentLogs::create($validate);
         return redirect('/')->with('status', 'Borrow Book Success');
     }
