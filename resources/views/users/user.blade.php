@@ -33,6 +33,7 @@
                     <th>Nis</th>
                     {{-- <th>Class</th> --}}
                     <th>Phone</th>
+                    <th>Role</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -55,6 +56,7 @@
                                 -
                             @endif
                         </td>
+                        <td>{{ $item->role->name }}</td>
                         <td>
                             <a href="/user/detail/{{$item->slug}}">detail</a>
                             <a href="/user/edit/{{$item->slug}}">edit</a>

@@ -52,16 +52,18 @@ class BookController extends Controller
             'title' => 'required|max:255',
             'publisher' => 'required|max:225',
             'author' => 'required|max:255',
-            'stock' => 'required',
+            'stock' => 'required|max:4|min:1',
+            'image' => 'image|mimes:jpeg,png,jpg|max:5048',
             'publication_date' => 'required',
         ]);
+
         $newName = '';
         if($request->file('image')){
             $extension = $request->file('image')->getClientOriginalExtension();
             $newName = $request->title.'-'.now()->timestamp.'.'.$extension;
             $request->file('image')->storeAs('cover', $newName);
         }
-
+        
         $request['cover'] = $newName;
         $book = Book::create([
             'book_code' => $request->book_code,

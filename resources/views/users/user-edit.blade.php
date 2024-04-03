@@ -36,10 +36,10 @@
             <input type="text" name="nis" id="nis" class="form-control" placeholder="Nis" value="{{ $user->nis }}">
         </div>
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="class" class="form-label">Class</label>
             <input type="text" name="class" id="class" class="form-control" placeholder="Class" value="{{ $user->class }}">
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
@@ -51,11 +51,14 @@
             <input type="text" name="address" id="address" class="form-control" placeholder="Address" value="{{ $user->address }}">
         </div>
 
-        <div class="card-body">
-              <select class="form-select" name="role_id">
-                  <option value="3">Petugas</option>
-                  <option value="2">User</option>
-              </select>
+        <div class="mb-3">
+            <div class="card-body">
+                <label for="role_id" class="form-label">Ganti Role</label>
+                <select class="form-select" name="role_id">
+                    <option value="2">User</option>
+                    <option value="3">Petugas</option>
+                </select>
+            </div>
         </div>
 
         <div class="mt-3">

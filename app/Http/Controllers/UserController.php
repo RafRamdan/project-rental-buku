@@ -12,15 +12,15 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $countData = User::where('role_id', 2)->where('status', 'active')->count();
+        $countData = User::with('role')->where('role_id','!=', 1)->where('status', 'active')->count();
 
         if($request->has('search')) {
-            $users = User::where('role_id', 2)->where('status', 'active')
+            $users = User::with('role')->where('role_id' ,'!=', 1)->where('status', 'active')
                          ->where('username','like','%'.$request->search.'%')
                          ->orwhere('phone','like','%'.$request->search.'%')
                          ->paginate(10);
         }else{
-            $users = User::where('role_id', 2)->where('status', 'active')->paginate(10);
+            $users = User::with('role')->where('role_id','!=', 1)->where('status', 'active')->paginate(10);
         }
         
         return view('users.user', ['users' => $users, 'count_data' => $countData]);
@@ -62,13 +62,23 @@ class UserController extends Controller
 
     public function update(Request $request,$slug)
     {
+        // dd(request()->all());
         $validated = $request->validate([
-            'username' => 'required|unique:users|max:100',
-            'nis' => 'required|unique:users|max:100',
+            'username' => 'required|max:100',
+            'nis' => 'required|max:100',
         ]);
         $user = User::where('slug', $slug)->first();
         $user->slug = null;
-        $user->update($request->all());
+
+        $user->update([
+            'username' => $request->username,
+            'nis' => $request->nis,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'role_id' => $request->role_id,
+        ]);
+        
+        
         return redirect('/user')->with('status', 'User Updated Success');
     }
 
