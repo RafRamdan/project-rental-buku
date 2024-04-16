@@ -52,7 +52,7 @@ class BookController extends Controller
             'title' => 'required|max:255',
             'publisher' => 'required|max:225',
             'author' => 'required|max:255',
-            'stock' => 'required|max:4|min:1',
+            'stock' => 'required|numeric|min:0',
             'image' => 'image|mimes:jpeg,png,jpg|max:5048',
             'publication_date' => 'required',
         ]);

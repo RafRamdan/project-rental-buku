@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('rent_date');
             $table->date('return_date');
             $table->date('actual_return_date')->nullable();
+            $table->string('status', 255)->nullable();
+            $table->string('verification', 225);
             $table->timestamps();
         });
     }

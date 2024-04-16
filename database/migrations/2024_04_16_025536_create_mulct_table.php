@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('slug')->nullable()->change();
+        Schema::create('mulcts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('rentLog_id');
+            $table->foreign('rentLog_id')->references('id')->on('rent_logs');
+            $table->string('mulct')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('slug')->nullable(false)->change();
-        });
+        Schema::dropIfExists('mulcts');
     }
 };
