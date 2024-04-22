@@ -17,7 +17,7 @@ class Book extends Model
 
 
     protected $fillable = [
-        'book_code', 'title', 'cover', 'slug', 'author', 'description', 'page', 'publisher', 'publication_date', 'stock',
+        'book_code', 'title', 'cover', 'slug', 'author', 'description', 'page', 'publisher', 'publication_date', 'stock','status',
     ];
 
     public function sluggable(): array

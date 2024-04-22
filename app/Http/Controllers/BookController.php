@@ -56,6 +56,7 @@ class BookController extends Controller
             'publisher' => 'required|max:225',
             'author' => 'required|max:255',
             'stock' => 'required|numeric|min:0',
+            // 'status' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:5048',
             'publication_date' => 'required',
         ]);
@@ -75,6 +76,7 @@ class BookController extends Controller
             'description' => $request->description,
             'page' => $request->page,
             'stock' => $request->stock,
+            'status' => $request->status,
             'publisher' => $request->publisher,
             'slug' => $request->slug,
             'publication_date' => $request->publication_date,

@@ -62,6 +62,14 @@
         </div>
 
         <div>
+            <label for="description" class="form-label">status stock</label>
+            <select name="status" id="status" class="form-control select-multiple" multiple>
+                <option value="in stock">in stock</option>
+                <option value="not available">not available</option>
+            </select>
+       </div>
+
+        <div>
             <label for="description" class="form-label">Description</label>
             <textarea name="description" id="description" class="form-control" rows="5" required></textarea>
        </div>
