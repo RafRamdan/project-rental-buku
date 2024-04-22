@@ -14,6 +14,7 @@ class PublicController extends Controller
 
         if ($request->title) {
             $books = Book::where('title', 'like', '%'.$request->title.'%')
+                         ->orwhere('book_code','like','%'.$request->title.'%')
                          ->paginate(8);
             $countData = Book::count();
         } elseif ($request->category) {

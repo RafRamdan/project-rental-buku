@@ -121,17 +121,37 @@ class BookRentController extends Controller
     {
         // dd(request()->all());
         $borrow = RentLogs::with(['user', 'book'])->where('id', $id)->first();
-        
-        $verification = [
-            'verification' => $request['verification']
-        ];
 
         $borrow->actual_return_date = Carbon::now()->toDateString();
         
+        // $dueDate = $borrow->actual_return_date;
         // $status_created = [
         //     'verification' => $request['verification'],
         //     'created_at' => now(),
         // ];
+        $dueDate = Carbon::createFromFormat('Y-m-d', $borrow->return_date);
+
+        $returnDate = Carbon::now();
+
+        if ($dueDate < $returnDate ) {
+            $diffDays = $dueDate->diffInDays($returnDate);
+        }else {
+            $diffDays = $dueDate->diffInDays($returnDate);
+            $diffDays = $diffDays * -1;
+        }
+        // dd($diffDays);
+
+        $mulctPrice = 1000;
+
+        if ($diffDays <= 0) {
+            $mulct = 0;
+        }else {
+            $mulct = max(0, $diffDays) * $mulctPrice;
+        }
+
+        $verification = [
+            'verification' => $request['verification']
+        ];
 
         $stockPlus = [
             'stock' => $borrow->book->stock + 1,
@@ -147,10 +167,12 @@ class BookRentController extends Controller
             $borrow->update($verification);
             $borrow->book->update($stockPlus);
             $borrow->book->update($status);
+            $borrow->total_mulct = $mulct;
             $borrow->save();
         }else{
             $borrow->update($verification);
             $borrow->book->update($stockPlus);
+            $borrow->total_mulct = $mulct;
             $borrow->save();
         }
 

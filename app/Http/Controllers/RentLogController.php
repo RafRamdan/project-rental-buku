@@ -15,7 +15,9 @@ class RentLogController extends Controller
         $rentlogs = RentLogs::with(['user', 'book'])
             ->whereRelation('book', 'deleted_at', '=', null)
             ->whereRelation('user', 'deleted_at', '=', null)
-            ->paginate(25);
+            ->orderBy('actual_return_date', 'DESC')
+            ->paginate(20);
+
         return view('rent-logs.rentlog', ['rent_logs' => $rentlogs]);
     }
 

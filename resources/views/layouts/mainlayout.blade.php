@@ -40,7 +40,7 @@
                               <a class="{{ request()->is('book*') ? 'active' : '' }}" href="/book">Books</a>
                               <a class="{{ request()->is('category*') ? 'active' : '' }}" href="/category">Categories</a>
                               <a class="{{ request()->is('user*') ? 'active' : '' }}" href="/user" >Users</a>
-                              <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >Rent Log</a>
+                              <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >borrower history</a>
                               <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
                               <a class="{{ request()->is('borrow-book*') ? 'active' : '' }}" href="/borrow-book" >Borrow Book</a>
                               <a class="{{ request()->is('return-book*') ? 'active' : '' }}" href="/return-book" >Book Return</a>
