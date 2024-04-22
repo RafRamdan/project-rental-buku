@@ -18,7 +18,9 @@ class BookRentController extends Controller
         $countData = RentLogs::where('verification', '=', 'Permintaan')->count();
         // $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
         // $books = Book::where('status', '!=', 'not available')->get();
-        $log_data = RentLogs::with(['user', 'book'])->where('verification', '=', 'Permintaan')->get();
+        $log_data = RentLogs::with(['user', 'book'])->where('verification', '=', 'Permintaan')
+        ->whereRelation('user', 'role_id', '=', 2)
+        ->get();
         return view('rental.book-rent', ['log_data' => $log_data, 'count_data' => $countData]);
         
     }
@@ -29,7 +31,9 @@ class BookRentController extends Controller
         if (Auth::user()) {
             if (Auth::user()->role_id == 1) {
                 return view('rental.book-approve', ['detail' => $detail]);
-            }else {
+            }else if (Auth::user()->role_id == 3){
+                return view('rental.book-approve', ['detail' => $detail]);
+            }else{
                 return view('list.book-user-detail', ['detail' => $detail]);
             }
         }
@@ -88,11 +92,18 @@ class BookRentController extends Controller
             //     $borrow->book->update($stockPlus);
             // } 
             else {
+                if (Auth::user()->role_id == 1) {
                 return redirect('/borrow-book')->with('failed', 'Stock buku habis, tidak bisa menyetujui peminjaman!');
+                }else{
+                    return redirect('/borrow-book/officer')->with('failed', 'Stock buku habis, tidak bisa menyetujui peminjaman!');
+                }
             }
         }
-
+        if (Auth::user()->role_id == 1) {
         return redirect('/borrow-book')->with('status', 'Borrow Book Update Success');
+        }else{
+            return redirect('/borrow-book/officer')->with('status', 'Borrow Book Update Success');
+        }
     
     }
 
@@ -101,7 +112,9 @@ class BookRentController extends Controller
         $countData = RentLogs::where('verification', '=', 'Disetujui')->count();
         // $users = User::where('role_id', '!=', 1)->where('role_id', '!=', 3)->where('status', '!=', 'inactive')->get();
         // $books = Book::where('status', '!=', 'not available')->get();
-        $log_data = RentLogs::with(['user', 'book'])->where('verification', '=', 'Disetujui')->get();
+        $log_data = RentLogs::with(['user', 'book'])->where('verification', '=', 'Disetujui')
+        ->whereRelation('user', 'role_id', '=', 2)
+        ->get();
         return view('return.return-book', ['log_data' => $log_data, 'count_data' => $countData]);
     }
 
@@ -110,6 +123,8 @@ class BookRentController extends Controller
         $detail = RentLogs::with(['user', 'book'])->where('id', $id)->first();
         if (Auth::user()) {
             if (Auth::user()->role_id == 1) {
+                return view('return.return-approve', ['detail' => $detail]);
+            }else if (Auth::user()->role_id == 3){
                 return view('return.return-approve', ['detail' => $detail]);
             }else {
                 return view('list.book-user-detail', ['detail' => $detail]);
@@ -180,8 +195,10 @@ class BookRentController extends Controller
             //     $borrow->update($status);
             //     $borrow->book->update($stockPlus);
             // }
-
-        return redirect('/return-book')->with('status', 'Return Book Success');
-    
+        if (Auth::user()->role_id == 1) {
+            return redirect('/return-book')->with('status', 'Return Book Success');
+        }else{
+            return redirect('/return-book/officer')->with('status', 'Return Book Success');
+        }
     }
 }

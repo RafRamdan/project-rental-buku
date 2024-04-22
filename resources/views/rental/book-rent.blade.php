@@ -44,11 +44,15 @@
                             <td>{{ $item->rent_date }}</td>
                             <td>{{ $item->return_date }}</td>
                             <td>{{ $item->actual_return_date }}</td>
-                            
+                            @if (Auth::user()->role_id == 1)
                             <td>
                                 <a href="/borrow-book/{{$item->id}}/edit">detail</a>    
                             </td> 
-                            
+                            @else
+                            <td>
+                                <a href="/borrow-book/officer/{{$item->id}}/edit">detail</a> 
+                            </td>
+                            @endif
                         </tr>     
                     @endforeach
                 </tbody>

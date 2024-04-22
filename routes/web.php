@@ -46,16 +46,21 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile', [profileController::class, 'index'])->middleware('only_client');
 
     Route::middleware('only_officer')->group(function(){
-        // Route::get('/dashboard/officer', [DashboardController::class, 'index']);
+
+        Route::get('/borrow-book/officer', [BookRentController::class, 'index']);
+        Route::get('/borrow-book/officer/{id}/edit', [BookRentController::class, 'edit']);
+        Route::put('/borrow-book/officer/{id}', [BookRentController::class, 'update']);
         
-        // Route::get('/rent-book/officer', [BookRentController::class, 'index']);
-        // Route::post('/rent-book/officer', [BookRentController::class, 'store']);
-                
-        // Route::get('/return-book/officer', [BookRentController::class, 'returnBook']);
-        // Route::post('/return-book/officer', [BookRentController::class, 'saveReturnBook']);
+        Route::get('/return-book/officer', [BookRentController::class, 'returnBook']);
+        Route::get('/return-book/officer/{id}/edit', [BookRentController::class, 'show']);
+        Route::put('/return-book/officer/{id}', [BookRentController::class, 'saveReturnBook']);
+            
+        Route::get('/rent-logs/officer', [RentLogController::class, 'index']);
+        Route::get('/exportpdf/officer', [RentLogController::class, 'exportpdf']);
+
+        Route::get('/dashboard/officer', [DashboardController::class, 'index']);
         
-        // Route::get('/rent-logs/officer', [RentLogController::class, 'index']);
-        // Route::get('/exportpdf/officer', [RentLogController::class, 'exportpdf']);
+        
     });
    
     Route::middleware('only_admin')->group(function(){
@@ -105,7 +110,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/rent-logs', [RentLogController::class, 'index']);
         Route::get('/exportpdf', [RentLogController::class, 'exportpdf']);
 
-        // route::get('/master', [DummyController::class, 'home']);
+        
     });
 
 });

@@ -46,7 +46,11 @@
                             <td>{{ $item->actual_return_date }}</td>
                             
                             <td>
+                            @if (Auth::user()->role_id == 1)
                                 <a href="/return-book/{{$item->id}}/edit">detail</a>    
+                            @else
+                                <a href="/return-book/officer/{{$item->id}}/edit">detail</a>  
+                            @endif  
                             </td> 
                             
                         </tr>     

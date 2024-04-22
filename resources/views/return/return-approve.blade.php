@@ -29,7 +29,11 @@
             </div>
 
             <div class="card-body">
+              @if (Auth::user()->role_id == 1)
                 <form action="/return-book/{{ $detail->id }}" method="post">
+              @else 
+              <form action="/return-book/officer/{{ $detail->id }}" method="post">
+              @endif
                   @csrf
                   @method('put')
                   <select class="form-select" name="verification">

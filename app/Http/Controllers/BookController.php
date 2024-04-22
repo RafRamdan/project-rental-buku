@@ -31,7 +31,9 @@ class BookController extends Controller
         if (Auth::user()) {
             if (Auth::user()->role_id == 1) {
                 return view('books.book-detail', ['book' => $book]);
-            }else {
+            }else if (Auth::user()->role_id == 3) {
+                return view('books.book-detail', ['book' => $book]);
+            }else{
                 return view('list.book-user-detail', ['book' => $book]);
             }
         }

@@ -21,7 +21,7 @@
               </button>
               <a class="navbar-brand" href="#">Perpustakaan Online</a>
             @if (Auth::user())
-              @if (Auth::user()->role_id == 1  || Auth::user()->role_id == 2)
+              @if (Auth::user()->role_id == 1  || Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
               
               <a class="navbar-brand row justify-content-end" href="/logout">Logout</a>
               
@@ -40,16 +40,16 @@
                               <a class="{{ request()->is('book*') ? 'active' : '' }}" href="/book">Books</a>
                               <a class="{{ request()->is('category*') ? 'active' : '' }}" href="/category">Categories</a>
                               <a class="{{ request()->is('user*') ? 'active' : '' }}" href="/user" >Users</a>
-                              <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >borrower history</a>
+                              <a class="{{ request()->is('rent-logs*') ? 'active' : '' }}" href="/rent-logs" >Borrower history</a>
                               <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/" >Book List</a>
                               <a class="{{ request()->is('borrow-book*') ? 'active' : '' }}" href="/borrow-book" >Borrow Book</a>
                               <a class="{{ request()->is('return-book*') ? 'active' : '' }}" href="/return-book" >Book Return</a>
                         @elseif (Auth::user()->role_id == 3)
                               <a class="{{ request()->is('dashboard/officer*') ? 'active' : '' }}" href="/dashboard/officer">Dashboard</a>
-                              <a class="{{ request()->is('rent-logs/officer*') ? 'active' : '' }}" href="/rent-logs/officer">Rent Log</a>
+                              <a class="{{ request()->is('rent-logs/officer*') ? 'active' : '' }}" href="/rent-logs/officer">Borrower history</a>
                               <a class="{{ request()->is('/*') ? 'active' : '' }}" href="/">Book List</a>
-                              <a class="{{ request()->is('book-rent/officer*') ? 'active' : '' }}" href="/book-rent/officer">Book Pinjam</a>
-                              <a class="{{ request()->is('book-return/officer*') ? 'active' : '' }}" href="/book-return/officer">Book Return</a>
+                              <a class="{{ request()->is('borrow-book/officer*') ? 'active' : '' }}" href="/borrow-book/officer" >Borrow Book</a>
+                              <a class="{{ request()->is('return-book/officer*') ? 'active' : '' }}" href="/return-book/officer" >Book Return</a>
                         @else
                               {{-- <a class="{{ request()->is('profile*') ? 'active' : '' }}" href="/profile" >Profile</a> --}}
                               <a class="{{ request()->is('user-rental*') ? 'active' : '' }}" href="/user-rental" >Your borrowing history</a>
